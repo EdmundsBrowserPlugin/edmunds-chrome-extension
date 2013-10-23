@@ -1,0 +1,10 @@
+### File extensions
+*.diff
+*.log
+
+### OS and IDE folders
+.DS_Store
+Thumbs.db
+.project
+.settings/
+.idea/
