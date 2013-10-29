@@ -1,0 +1,11 @@
+{
+  "application_name": {
+    "message": "Edmunds Buddy"
+  },
+  "application_description": {
+    "message": "Learn about cars wherever you are!"
+  },
+  "default_title": {
+    "message": "Edmunds Buddy"
+  }
+}
