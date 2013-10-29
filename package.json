@@ -1,0 +1,23 @@
+{
+  "name": "edmunds-chrome-extension",
+  "version": "0.0.0",
+  "description": "Edmunds Google Chrome Browser Extension",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EdmundsBrowserPlugin/edmunds-chrome-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EdmundsBrowserPlugin/edmunds-chrome-extension/issues"
+  },
+  "scripts": {
+    "install": "bower install",
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-qunit": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-jsonlint": "~1.0.1"
+  }
+}
