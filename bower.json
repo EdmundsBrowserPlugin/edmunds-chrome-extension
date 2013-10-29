@@ -1,0 +1,14 @@
+{
+  "name": "edmunds-chrome-extension",
+  "version": "0.0.0",
+  "description": "Edmunds Google Chrome Browser Extension",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "devDependencies": {
+    "qunit": "1.12.0"
+  }
+}
