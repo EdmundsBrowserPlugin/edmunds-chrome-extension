@@ -11,6 +11,14 @@
   "nonew": true,
   "quotmark": "single",
   "unused": true,
+  "undef": true,
   "maxdepth": 2,
-  "onevar": true
+  "onevar": true,
+  "browser": true,
+  "devel": true,
+  "globals": {
+    "chrome": true,
+    "define": true,
+    "require": true
+  }
 }
