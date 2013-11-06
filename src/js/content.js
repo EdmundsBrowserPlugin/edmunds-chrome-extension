@@ -34,10 +34,6 @@
             this.vehicleListEl = this.$vehicleListEl[0];
         },
 
-        render: function() {
-            return this;
-        },
-
         show: function() {
             this.$el.removeClass('edm-hide');
             return this;
@@ -74,7 +70,7 @@
 
     function createPanel() {
         panel = new Panel();
-        document.body.appendChild(panel.render().el);
+        document.body.appendChild(panel.el);
         panel.hide();
     }
 
