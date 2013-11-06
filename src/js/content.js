@@ -29,10 +29,12 @@
             this.$el.on('dblclick', function() {
                 me.hide();
             });
+            this.$el.html(this.template);
+            this.$vehicleListEl = this.$('.vehicles-list');
+            this.vehicleListEl = this.$vehicleListEl[0];
         },
 
         render: function() {
-            this.$el.html(this.template);
             return this;
         },
 
@@ -47,12 +49,12 @@
         },
 
         resetVehicles: function() {
-            this.$('.vehicles-list').html('<li class="edm-not-found">Vehicles were not found</li>');
+            this.$vehicleListEl.html('<li class="edm-not-found">Vehicles were not found</li>');
             return this;
         },
 
         setVehicles: function(data) {
-            var list = this.$('.vehicles-list');
+            var list = this.$vehicleListEl;
             list.empty();
             _.each(data, function(models, make) {
                 _.each(models, function(years, model) {
@@ -81,7 +83,7 @@
         panel.show();
     }
 
-    parseDocument = _.throttle(function() {
+    parseDocument = _.debounce(function() {
         chrome.runtime.sendMessage({
             action: 'parseDocument',
             data: document.body.innerText
@@ -121,6 +123,10 @@
     createPanel();
     parseDocument();
 
-    document.addEventListener('DOMSubtreeModified', parseDocument);
+    document.addEventListener('DOMSubtreeModified', function(e) {
+        if (e.target !== panel.vehicleListEl) {
+            parseDocument();
+        }
+    });
 
 }(window.$, window._));
