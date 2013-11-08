@@ -29,8 +29,13 @@
 }
 
 .edm-vehicles-list {
-    max-height: 240px;
+    height: 174px;
     overflow-y: auto;
+    transition: height .2s ease;
+}
+
+.edm-parsing .edm-vehicles-list {
+    height: 0;
 }
 
 .edm-vehicles-list-item {
@@ -39,9 +44,4 @@
 }
 .edm-vehicles-list-item:first-child {
     border-top: 0;
-}
-
-.edm-not-found {
-    text-align: center;
-    text-transform: uppercase;
 }

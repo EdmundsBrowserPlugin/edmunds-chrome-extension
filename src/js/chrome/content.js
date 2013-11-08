@@ -47,8 +47,8 @@
             return this;
         },
 
-        resetVehicles: function() {
-            this.$headEl.text('Vehicles were not found');
+        resetVehicles: function(text) {
+            this.$headEl.text(text || 'Vehicles were not found');
             this.$vehicleListEl.empty();
             return this;
         },
@@ -81,7 +81,6 @@
 
     function notify(text) {
         console.log(text);
-        panel.show();
     }
 
     parseDocument = _.debounce(function() {
@@ -110,7 +109,13 @@
             });
         });
         notify(rows.join('\n'));
-        panel.setVehicles(data).show();
+        panel.setVehicles(data);
+        panel.$el.removeClass('edm-parsing');
+    }
+
+    function parsing() {
+        panel.$el.addClass('edm-parsing');
+        panel.resetVehicles('Parsing document...').show();
     }
 
     chrome.runtime.onMessage.addListener(function(message) {
@@ -119,14 +124,14 @@
         }
     });
 
-    parseDocument = _.throttle(parseDocument, parsePeriod);
-
     createPanel();
+    parsing();
     parseDocument();
 
     document.addEventListener('DOMSubtreeModified', function(e) {
         var targetEl = e.target;
         if (targetEl !== panel.el && targetEl !== panel.vehicleListEl && targetEl !== panel.headEl) {
+            parsing();
             parseDocument();
         }
     });
