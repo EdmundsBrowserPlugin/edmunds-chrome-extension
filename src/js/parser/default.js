@@ -7,9 +7,11 @@ define([
         buildPatterns: function(make, models) {
             var patterns = [],
                 combinedModels = models.join('|'),
-                optionalYearAfter = '(?:\\s+(\\d{4}))?',
-                optionalYearBefore = '(?:(\\d{4})\\s+)?',
-                model = '\\s+(' + combinedModels + ')\\s+';
+                separator = '[\\s\\W]*', // any whitespace or non-word character
+                year = '\\d{4}', // 2014
+                optionalYearAfter = '(?:' + separator + '(' + year + '))?',
+                optionalYearBefore = '(?:(' + year + ')' + separator + ')?',
+                model = separator + '(' + combinedModels + ')' + separator;
             patterns.push(optionalYearBefore + '(' + make + ')' + optionalYearAfter + model + optionalYearAfter);
             patterns.push(optionalYearBefore + model + optionalYearBefore + '(' + make + ')' + optionalYearAfter);
             return patterns;
@@ -34,7 +36,6 @@ define([
                 var patterns = this.buildPatterns(make, models),
                     reg = new RegExp(patterns.join('|'), 'g'),
                     matches = str.match(reg);
-
                 _.each(matches, function(str) {
                     var vehicle = this.parseVehicle(str, patterns);
                     if (!output[make]) {
