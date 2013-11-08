@@ -1,3 +1,4 @@
+/* global module */
 module.exports = function(grunt) {
     'use strict';
 
@@ -18,7 +19,10 @@ module.exports = function(grunt) {
                 src: ['src/js/**/*.js']
             },
             test: {
-                src: ['test/unit/**/*.js']
+                src: ['test/**/*.js'],
+                options: {
+                    jshintrc: 'test/.jshintrc'
+                }
             }
         },
 
