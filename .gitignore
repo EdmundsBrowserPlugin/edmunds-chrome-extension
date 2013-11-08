@@ -1,3 +1,7 @@
+### Browser extension files
+*.crx
+*.pem
+
 ### File extensions
 *.diff
 *.log
