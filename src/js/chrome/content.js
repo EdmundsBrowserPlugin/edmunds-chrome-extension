@@ -15,7 +15,8 @@
         className: 'edm-panel',
 
         template: [
-            '<ul class="vehicles-list"></ul>'
+            '<div class="edm-head">Found Vehicles</div>',
+            '<div class="edm-vehicles-list"></div>'
         ].join(''),
 
         initialize: function() {
@@ -26,11 +27,13 @@
             this.$ = function(selector) {
                 return this.$el.find(selector);
             };
-            this.$el.on('dblclick', function() {
+            this.$el.html(this.template);
+            this.$headEl = this.$('.edm-head');
+            this.headEl = this.$headEl[0];
+            this.$headEl.on('dblclick', function() {
                 me.hide();
             });
-            this.$el.html(this.template);
-            this.$vehicleListEl = this.$('.vehicles-list');
+            this.$vehicleListEl = this.$('.edm-vehicles-list');
             this.vehicleListEl = this.$vehicleListEl[0];
         },
 
@@ -45,21 +48,23 @@
         },
 
         resetVehicles: function() {
-            this.$vehicleListEl.html('<li class="edm-not-found">Vehicles were not found</li>');
+            this.$headEl.text('Vehicles were not found');
+            this.$vehicleListEl.empty();
             return this;
         },
 
         setVehicles: function(data) {
             var list = this.$vehicleListEl;
             list.empty();
+            this.$headEl.text('Found Vehicles');
             _.each(data, function(models, make) {
                 _.each(models, function(years, model) {
                     if (years.length === 0) {
-                        list.append('<li>' + [make, model].join(' ') + '</li>');
+                        list.append('<div class="edm-vehicles-list-item">' + [make, model].join(' ') + '</div>');
                         return;
                     }
                     _.each(years.sort(), function(year) {
-                        list.append('<li>' + [year, make, model].join(' ') + '</li>');
+                        list.append('<div class="edm-vehicles-list-item">' + [year, make, model].join(' ') + '</div>');
                     });
                 });
             });
@@ -120,7 +125,8 @@
     parseDocument();
 
     document.addEventListener('DOMSubtreeModified', function(e) {
-        if (e.target !== panel.vehicleListEl) {
+        var targetEl = e.target;
+        if (targetEl !== panel.el && targetEl !== panel.vehicleListEl && targetEl !== panel.headEl) {
             parseDocument();
         }
     });
