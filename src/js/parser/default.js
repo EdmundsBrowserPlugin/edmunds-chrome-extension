@@ -4,6 +4,11 @@ define([
 
     return {
 
+        /**
+         * @param {String} make
+         * @param {Array} models
+         * @returns {Array}
+         */
         buildPatterns: function(make, models) {
             var patterns = [],
                 combinedModels = models.join('|'),
@@ -17,9 +22,14 @@ define([
             return patterns;
         },
 
+        /**
+         * @param {String} str
+         * @param {Array} patterns
+         * @returns {Object}
+         */
         parseVehicle: function(str, patterns) {
             var reg = new RegExp(patterns.join('|')),
-                parts = str.match(reg); // => [input, year, make, year, model, year, year, model, year, make, year]
+                parts = str.match(reg); // => [input, year, make, year, model, year, year, model, year, make, year];
             if (!parts) {
                 return null;
             }
@@ -30,6 +40,11 @@ define([
             };
         },
 
+        /**
+         * @param {String} str
+         * @param {Object} makeModelsMap
+         * @returns {Object}
+         */
         parse: function(str, makeModelsMap) {
             var output = {};
             _.each(makeModelsMap, function(models, make) {
@@ -45,19 +60,11 @@ define([
                         output[make][vehicle.model] = [];
                     }
                     if (vehicle.year) {
-                        output[make][vehicle.model] = _.union(output[make][vehicle.model], vehicle.year);
+                        output[make][vehicle.model] = _.union(output[make][vehicle.model], vehicle.year).sort();
                     }
                 }, this);
             }, this);
-            this.count(makeModelsMap);
             return output;
-        },
-
-        count: function(makeModelsMap) {
-            var totalMakes = _.keys(makeModelsMap).length,
-                totalModels = _.reduce(makeModelsMap, function(memo, models) { return memo + models.length; }, 0);
-            console.log('total makes: ' + totalMakes);
-            console.log('total models: ' + totalModels);
         }
 
     };
