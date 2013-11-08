@@ -1,4 +1,6 @@
-define(['jquery'], function(jQuery){
+define([
+    'jquery'
+], function(jQuery){
 
     return jQuery.Deferred;
 
