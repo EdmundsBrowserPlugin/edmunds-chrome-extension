@@ -1,9 +1,9 @@
 require([
     'parser/default',
-    'util/request',
     'util/deferred',
-    'storage'
-], function(DefaultParser, request, Deferred, storage) {
+    'util/request',
+    'util/storage'
+], function(DefaultParser, Deferred, request, storage) {
 
     var init = new Deferred();
 
