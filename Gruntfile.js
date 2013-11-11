@@ -1,3 +1,4 @@
+/* global module */
 module.exports = function(grunt) {
     'use strict';
 
@@ -18,13 +19,16 @@ module.exports = function(grunt) {
                 src: ['src/js/**/*.js']
             },
             test: {
-                src: ['test/unit/**/*.js']
+                src: ['test/**/*.js'],
+                options: {
+                    jshintrc: 'test/.jshintrc'
+                }
             }
         },
 
         // https://github.com/brandonramirez/grunt-jsonlint
         jsonlint: {
-            package: {
+            pkg: {
                 src: ['package.json']
             },
             bower: {
@@ -62,9 +66,9 @@ module.exports = function(grunt) {
                 tasks: ['jshint:test']
             },
             // json files
-            package: {
-                files: ['<%= jsonlint.package.src %>'],
-                tasks: ['jsonlint:package']
+            pkg: {
+                files: ['<%= jsonlint.pkg.src %>'],
+                tasks: ['jsonlint:pkg']
             },
             bower: {
                 files: ['<%= jsonlint.bower.src %>'],

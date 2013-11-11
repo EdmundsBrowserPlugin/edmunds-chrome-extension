@@ -19,6 +19,21 @@
   "globals": {
     "chrome": true,
     "define": true,
-    "require": true
+    "require": true,
+    "QUnit": true,
+    "deepEqual": true,
+    "equal": true,
+    "notDeepEqual": true,
+    "notEqual": true,
+    "notStrictEqual": true,
+    "ok": true,
+    "strictEqual": true,
+    "throws": true,
+    "asyncTest": true,
+    "start": true,
+    "stop": true,
+    "expect": true,
+    "module": true,
+    "test": true
   }
 }

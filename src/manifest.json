@@ -19,7 +19,28 @@
   },
 
   "permissions": [
+    "storage",
+    "tabs",
     "*://api.edmunds.com/*"
-  ]
+  ],
+
+  "background": {
+    "page": "background.html"
+  },
+
+  "content_scripts": [{
+    "matches": [
+      "http://*/*",
+      "https://*/*"
+    ],
+    "js": [
+      "lib/jquery/jquery.js",
+      "lib/underscore/underscore.js",
+      "js/chrome/content.js"
+    ],
+    "css": [
+      "css/panel.css"
+    ]
+  }]
 
 }

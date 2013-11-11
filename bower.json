@@ -9,6 +9,9 @@
     "test"
   ],
   "devDependencies": {
-    "qunit": "1.12.0"
+    "jquery": "~2.0.3",
+    "qunit": "1.12.0",
+    "requirejs": "~2.1.9",
+    "underscore": "~1.5.2"
   }
 }
