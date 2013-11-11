@@ -1,48 +1,11 @@
 require([
-    'parser/default',
+    'app/Background',
     'util/deferred',
     'util/request',
     'util/storage'
-], function(DefaultParser, Deferred, request, storage) {
+], function(BackgroundApp, Deferred, request, storage) {
 
-    var init = new Deferred();
-
-    function start() {
-        chrome.runtime.onMessage.addListener(function(message, sender) {
-            if (message.action === 'parseDocument' && sender.url) {
-                console.log('Parsing ' + sender.url + '...');
-                var startTime = Date.now();
-                storage.getMakeModels(function(response) {
-                    var vehicles = DefaultParser.parse(message.data, response.makeModels);
-                    if (sender.tab) {
-                        chrome.tabs.sendMessage(sender.tab.id, {
-                            action: 'updateVehicles',
-                            data: vehicles
-                        });
-                    }
-                    console.log('\t' + [
-                        'length: ' + message.data.length,
-                        'time: ' + ((Date.now() - startTime) / 1000) + 's'
-                    ].join('\n\t'));
-                });
-            }
-        });
-    }
-
-    function loadPredefinedMakeModels() {
-        console.log('Loading predefined data...');
-        request.getJSON('data/make-models.json', function(makeModels) {
-            storage.setMakeModels(makeModels, function() {
-                console.log('Predefined data was loaded.');
-                init.resolve();
-            });
-        });
-    }
-
-    function updateMakeModels() {
-        console.log('Updating data...');
-        init.resolve();
-    }
+    var setup = new Deferred();
 
     function checkForUpdates() {
         storage.getLastUpdatedDate(function(response) {
@@ -53,12 +16,30 @@ require([
             } else if ((Date.now() - response.date) > updatePeriod * millisecondsInDay) {
                 updateMakeModels();
             } else {
-                init.resolve();
+                setup.resolve();
             }
         });
     }
 
-    init.done(start);
+    function loadPredefinedMakeModels() {
+        console.log('Loading predefined data...');
+        request.getJSON('data/make-models.json', function(makeModels) {
+            storage.setMakeModels(makeModels, function() {
+                console.log('Predefined data was loaded.');
+                setup.resolve();
+            });
+        });
+    }
+
+    function updateMakeModels() {
+        console.log('Updating data...');
+        setup.resolve();
+    }
+
+    setup.done(function() {
+        /* jshint unused:false */
+        var app = new BackgroundApp();
+    });
 
     checkForUpdates();
 

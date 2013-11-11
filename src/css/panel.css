@@ -11,6 +11,8 @@
     bottom: 10px;
     width: 250px;
     z-index: 10000;
+    text-align: left;
+    text-shadow: none;
     transition: bottom .5s ease;
 }
 
@@ -29,9 +31,8 @@
 }
 
 .edm-vehicles-list {
-    height: 174px;
+    max-height: 240px;
     overflow-y: auto;
-    transition: height .2s ease;
 }
 
 .edm-parsing .edm-vehicles-list {
