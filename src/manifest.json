@@ -34,13 +34,18 @@
       "https://*/*"
     ],
     "js": [
-      "lib/jquery/jquery.js",
-      "lib/underscore/underscore.js",
+      "js/lib/requirejs/require.js",
+      "js/chrome/override-content-require.js",
+      "js/config.js",
       "js/chrome/content.js"
     ],
     "css": [
       "css/panel.css"
     ]
-  }]
+  }],
+
+  "web_accessible_resources": [
+    "js/*"
+  ]
 
 }
