@@ -9,27 +9,23 @@ define([
 
         initialize: function() {
             App.prototype.initialize.apply(this, arguments);
-            document.addEventListener('DOMSubtreeModified', function(e) {
-                var $el = $(e.target);
-                if ($el.hasClass('edm-panel')) {
-                    console.log('**** panel');
-                    return;
-                }
-                if ($el.closest('.edm-panel').length > 0) {
-                    console.log('**** child');
-                    return;
-                }
-                this.parseDocument();
-            }.bind(this));
-            this.sendParseAction = _.debounce(function() {
-                this.sendAction('parseDocument', this.getDocumentContent());
-            }.bind(this), 2000);
+            document.addEventListener('DOMSubtreeModified', this.onDOMChange.bind(this));
+            this.parseDocument = _.throttle(this.parseDocument, 2000);
+        },
+
+        onDOMChange: function(event) {
+            var $el = $(event.target);
+            if ($el.hasClass('edm-panel')) {
+                return;
+            }
+            if ($el.closest('.edm-panel').length !== 0) {
+                return;
+            }
+            this.parseDocument();
         },
 
         getDocumentContent: function() {
-            var body = $(document.body).clone();
-            body.find('.edm-panel').remove();
-            return body.text();
+            return document.body.innerText.replace(this.panel.el.innerText, '');
         },
 
         createVehiclesPanel: function() {
@@ -51,8 +47,7 @@ define([
 
         parseDocument: function() {
             console.log('ContentApp#parseDocument');
-            this.panel.setTitle('Parsing document...');
-            this.sendParseAction();
+            this.sendAction('parseDocument', this.getDocumentContent());
         },
 
         updateVehicles: function(vehicles) {
@@ -61,8 +56,16 @@ define([
                 this.panel.resetVehicles();
                 return;
             }
+            if (_.isEqual(vehicles, this.previousVehicles)) {
+                return;
+            }
+            this.setVehicles(vehicles);
+        },
+
+        setVehicles: function(vehicles) {
+            console.log('ContentApp#setVehicles');
+            this.previousVehicles = vehicles;
             this.panel.setVehicles(vehicles);
-            this.panel.$el.removeClass('edm-parsing');
         }
 
     });
