@@ -61,4 +61,4 @@ Validate js/json files and run the Unit Tests by following:
 ## Tricks and tips
 
 * Start `grunt watch` or just `grunt` to auto-run jshint, jsonlint tasks whenever watched files are added, changed or removed.
-* Add `[skip ci]` or `[skip ci]` to the commit message to prevent your push from being built on Travis CI.
+* Add `[skip ci]` or `[ci skip]` to the commit message to prevent your push from being built on Travis CI.
