@@ -1,7 +1,7 @@
 {
   "name": "edmunds-chrome-extension",
   "version": "0.0.0",
-  "description": "Edmunds Google Chrome Browser Extension",
+  "description": "Edmunds Chrome Extension",
   "repository": {
     "type": "git",
     "url": "https://github.com/EdmundsBrowserPlugin/edmunds-chrome-extension.git"
