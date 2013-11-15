@@ -13,12 +13,13 @@ define([
             var patterns = [],
                 combinedModels = models.join('|'),
                 separator = '[\\s\\W]*', // any whitespace or non-word character
+                wordBoundary = '\\b', // word boundary
                 year = '\\d{4}', // 2014
                 optionalYearAfter = '(?:' + separator + '(' + year + '))?',
                 optionalYearBefore = '(?:(' + year + ')' + separator + ')?',
                 model = separator + '(' + combinedModels + ')' + separator;
-            patterns.push(optionalYearBefore + '(' + make + ')' + optionalYearAfter + model + optionalYearAfter);
-            patterns.push(optionalYearBefore + model + optionalYearBefore + '(' + make + ')' + optionalYearAfter);
+            patterns.push(wordBoundary + optionalYearBefore + '(' + make + ')' + optionalYearAfter + model + optionalYearAfter + wordBoundary);
+            patterns.push(wordBoundary + optionalYearBefore + model + optionalYearBefore + '(' + make + ')' + optionalYearAfter + wordBoundary);
             return patterns;
         },
 

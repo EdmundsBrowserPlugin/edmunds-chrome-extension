@@ -4,15 +4,6 @@ define([
 
     module('parser/default');
 
-    test('buildPatterns', function() {
-        var actual = parser.buildPatterns('Porsche', ['Cayenne', '911']),
-            expected = [
-                '(?:(\\d{4})[\\s\\W]*)?(Porsche)(?:[\\s\\W]*(\\d{4}))?[\\s\\W]*(Cayenne|911)[\\s\\W]*(?:[\\s\\W]*(\\d{4}))?',
-                '(?:(\\d{4})[\\s\\W]*)?[\\s\\W]*(Cayenne|911)[\\s\\W]*(?:(\\d{4})[\\s\\W]*)?(Porsche)(?:[\\s\\W]*(\\d{4}))?'
-            ];
-        deepEqual(actual, expected);
-    });
-
     test('parseVehicle', function() {
         var patterns = parser.buildPatterns('Porsche', ['Cayenne']),
             expectedFull = { make: 'Porsche', model: 'Cayenne', year: '2013' },
@@ -26,7 +17,8 @@ define([
         deepEqual(parser.parseVehicle('Porsche Cayenne', patterns), expectedPart, 'make model');
         deepEqual(parser.parseVehicle('Cayenne Porsche', patterns), expectedPart, 'model make');
         deepEqual(parser.parseVehicle('Porsche: Cayenne', patterns), expectedPart, 'make: model');
-        equal(parser.parseVehicle('Porsche 911', patterns), null, 'not found');
+        deepEqual(parser.parseVehicle('BMW Mazda', parser.buildPatterns('BMW', ['M'])), null, '"BMW M" should not be found in "BMW Mazda"');
+        equal(parser.parseVehicle('Porsche 911', patterns), null, 'should not be found');
     });
 
     test('parse', function() {
