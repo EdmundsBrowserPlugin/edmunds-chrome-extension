@@ -21,7 +21,10 @@
   "permissions": [
     "storage",
     "tabs",
-    "*://api.edmunds.com/*"
+    "http://api.edmunds.com/*",
+    "https://api.edmunds.com/*",
+    "http://www.edmunds.com/*",
+    "https://www.edmunds.com/*"
   ],
 
   "background": {
@@ -40,12 +43,13 @@
       "js/chrome/content.js"
     ],
     "css": [
-      "css/panel.css"
+      "css/app.css"
     ]
   }],
 
   "web_accessible_resources": [
-    "js/*"
+    "js/*",
+    "img/*"
   ]
 
 }
