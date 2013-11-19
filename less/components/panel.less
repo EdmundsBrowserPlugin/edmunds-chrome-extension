@@ -1,0 +1,68 @@
+.edm-ext-panel {
+  background: linear-gradient(to bottom, @panel-gradient-primary-color 0%,@panel-gradient-secondary-color 100%);
+  box-shadow: 0 0 5px rgba(0,0,0,.5);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  height: 30px;
+  left: 0;
+  line-height: 1.5;
+  min-width: 550px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000009;
+}
+
+.edm-ext-panel-body {
+  .clearfix();
+  border-left: 1px solid @panel-gradient-secondary-color;
+  margin: 0 @toolbar-width 0 @logo-width;
+}
+
+.edm-ext-logo {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.edm-ext-toolbar {
+  .clearfix();
+  border-left: 1px solid @panel-gradient-secondary-color;
+  right: 0;
+  position: absolute;
+  top: 0;
+  width: @toolbar-width;
+
+  .edm-ext-icon {
+    border-left: 1px solid @panel-gradient-primary-color;
+    border-right: 1px solid @panel-gradient-secondary-color;
+    float: left;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+}
+
+.edm-ext-panel-left,
+.edm-ext-panel-right,
+.edm-ext-panel-content {
+  height: 40px;
+  padding: 0 @horizontal-gutter;
+}
+
+.edm-ext-panel-left {
+  border-right: 1px solid @panel-gradient-secondary-color;
+  float: left;
+}
+
+.edm-ext-panel-right {
+  border-left: 1px solid @panel-gradient-primary-color;
+  float: right;
+}
+
+.edm-ext-panel-content {
+  border-left: 1px solid @panel-gradient-primary-color;
+  border-right: 1px solid @panel-gradient-secondary-color;
+  overflow: hidden;
+  padding: 0 @horizontal-gutter;
+}

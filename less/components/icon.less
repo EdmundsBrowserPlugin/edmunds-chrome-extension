@@ -1,0 +1,33 @@
+.edm-ext-icon {
+  cursor: pointer;
+  display: block;
+  padding: 5px;
+  .user-select(none);
+}
+
+.edm-ext-icon .edm-ext-icon-mask {
+  background-color: @color-primary;
+  transition: background-color .2s ease;
+}
+
+.edm-ext-icon:hover .edm-ext-icon-mask {
+  background-color: @color-secondary;
+}
+
+.edm-ext-icon-mask {
+  display: block;
+  height: 20px;
+  width: 20px;
+  -webkit-mask-position: center center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 12px;
+}
+
+.edm-ext-icon-mask.settings {
+  -webkit-mask-image: url('chrome-extension://__MSG_@@extension_id__/img/icon-settings.png');
+}
+
+.edm-ext-icon-mask.close {
+  -webkit-mask-image: url('chrome-extension://__MSG_@@extension_id__/img/icon-close.png');
+  -webkit-mask-size: 10px;
+}

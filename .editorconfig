@@ -18,3 +18,6 @@ indent_size = 4
 
 [**.html]
 indent_style = tab
+
+[**.less]
+indent_size = 2
