@@ -1,9 +1,9 @@
 require([
-    'app/Content'
+    'app/Content',
+    'util/mixins'
 ], function(ContentApp) {
 
     var app = new ContentApp();
-    app.createVehiclesPanel();
     app.parseDocument();
 
 });

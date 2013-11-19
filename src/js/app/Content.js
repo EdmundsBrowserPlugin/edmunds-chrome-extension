@@ -2,8 +2,8 @@ define([
     'jquery',
     'underscore',
     'app/Base',
-    'view/VehiclesPanel'
-], function($, _, App, VehiclesPanel) {
+    'view/Panel'
+], function($, _, App, Panel) {
 
     return App.extend({
 
@@ -11,14 +11,15 @@ define([
             App.prototype.initialize.apply(this, arguments);
             document.addEventListener('DOMSubtreeModified', this.onDOMChange.bind(this));
             this.parseDocument = _.throttle(this.parseDocument, 2000);
+            this.injectPanel();
         },
 
         onDOMChange: function(event) {
             var $el = $(event.target);
-            if ($el.hasClass('edm-panel')) {
+            if ($el.hasClass('edm-ext-panel')) {
                 return;
             }
-            if ($el.closest('.edm-panel').length !== 0) {
+            if ($el.closest('.edm-ext-panel').length !== 0) {
                 return;
             }
             this.parseDocument();
@@ -28,9 +29,10 @@ define([
             return document.body.innerText.replace(this.panel.el.innerText, '');
         },
 
-        createVehiclesPanel: function() {
-            this.panel = new VehiclesPanel();
+        injectPanel: function() {
+            this.panel = new Panel();
             document.body.appendChild(this.panel.el);
+            return this;
         },
 
         /**
@@ -42,6 +44,9 @@ define([
                 case 'updateVehicles':
                     this.updateVehicles(message.data);
                     break;
+                case 'updateSpecialOffers':
+                    this.updateSpecialOffers(message.data);
+                    break;
             }
         },
 
@@ -50,22 +55,17 @@ define([
             this.sendAction('parseDocument', this.getDocumentContent());
         },
 
-        updateVehicles: function(vehicles) {
-            console.log('ContentApp#updateVehicles');
-            if (_.isEmpty(vehicles)) {
-                this.panel.resetVehicles();
+        updateSpecialOffers: function(response) {
+            console.log('#updateSpecialOffers');
+            if (_.isEmpty(response)) {
+                this.panel.resetSpecialOffers();
                 return;
             }
-            if (_.isEqual(vehicles, this.previousVehicles)) {
+            if (_.isEqual(response, this.previousResponse)) {
                 return;
             }
-            this.setVehicles(vehicles);
-        },
-
-        setVehicles: function(vehicles) {
-            console.log('ContentApp#setVehicles');
-            this.previousVehicles = vehicles;
-            this.panel.setVehicles(vehicles);
+            this.previousResponse = response;
+            this.panel.setSpecialOffers(response);
         }
 
     });

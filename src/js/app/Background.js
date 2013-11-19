@@ -1,8 +1,11 @@
 define([
     'app/Base',
     'parser/default',
-    'util/storage'
-], function(App, DefaultParser, storage) {
+    'util/storage',
+    'util/special-offers-manager',
+    'underscore',
+    'jquery'
+], function(App, DefaultParser, storage, man, _, $) {
 
     return App.extend({
 
@@ -38,13 +41,15 @@ define([
                 case 'parseDocument':
                     this.parseDocument(data, sender);
                     break;
+                case 'fetchSpecialOffers':
+                    this.fetchSpecialOffers(data, sender);
+                    break;
                 default:
                     console.log('Unknown action');
             }
         },
 
         parseDocument: function(data, sender) {
-            var startTime = Date.now();
             console.log('BackgroundApp#parseDocument');
             if (!sender.url) {
                 return;
@@ -53,12 +58,33 @@ define([
             storage.getMakeModels(function(response) {
                 var vehicles = DefaultParser.parse(data, response.makeModels);
                 if (sender.tab) {
-                    this.sendTabAction(sender.tab.id, 'updateVehicles', vehicles);
+                    //this.sendTabAction(sender.tab.id, 'updateVehicles', vehicles);
+                    this.fetchSpecialOffers(vehicles, sender);
                 }
-                console.log('\t' + [
-                    'length: ' + data.length,
-                    'time: ' + ((Date.now() - startTime) / 1000) + 's'
-                ].join('\n\t'));
+            }.bind(this));
+        },
+
+        fetchSpecialOffers: function(vehicles, sender) {
+            var requests = [];
+            console.log('#fetchSpecialOffers');
+            _.each(vehicles, function(models, make) {
+                _.each(models, function(years, model) {
+                    requests.push(man.fetchSpecialOffers(make, model, years));
+                });
+            });
+            return $.when.apply({}, requests).done(function() {
+                var offers = {},
+                    args = [].slice.call(arguments);
+                _.each(args, function(data) {
+                    if (data.offers.length === 0) {
+                        return;
+                    }
+                    if (!offers[data.make]) {
+                        offers[data.make] = {};
+                    }
+                    offers[data.make][data.model] = data.offers;
+                });
+                this.sendTabAction(sender.tab.id, 'updateSpecialOffers', offers);
             }.bind(this));
         }
 
