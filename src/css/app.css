@@ -1,0 +1,269 @@
+.edm-ext-icon {
+  cursor: pointer;
+  display: block;
+  padding: 5px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.edm-ext-icon .edm-ext-icon-mask {
+  background-color: #1a4287;
+  transition: background-color 0.2s ease;
+}
+.edm-ext-icon:hover .edm-ext-icon-mask {
+  background-color: #a62d3c;
+}
+.edm-ext-icon-mask {
+  display: block;
+  height: 20px;
+  width: 20px;
+  -webkit-mask-position: center center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 12px;
+}
+.edm-ext-icon-mask.settings {
+  -webkit-mask-image: url('chrome-extension://__MSG_@@extension_id__/img/icon-settings.png');
+}
+.edm-ext-icon-mask.close {
+  -webkit-mask-image: url('chrome-extension://__MSG_@@extension_id__/img/icon-close.png');
+  -webkit-mask-size: 10px;
+}
+.edm-ext-logo {
+  background: transparent url('chrome-extension://__MSG_@@extension_id__/img/edmunds-logo.png') no-repeat center center;
+  display: block;
+  height: 20px;
+  padding: 5px 15px;
+  text-indent: -999em;
+  width: 70px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.edm-ext-panel {
+  background: linear-gradient(to bottom, #f1f1f1 0%, #e1e1e1 100%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  height: 30px;
+  left: 0;
+  line-height: 1.5;
+  min-width: 550px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000009;
+}
+.edm-ext-panel-body {
+  border-left: 1px solid #e1e1e1;
+  margin: 0 64px 0 100px;
+}
+.edm-ext-panel-body:before,
+.edm-ext-panel-body:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.edm-ext-panel-body:after {
+  clear: both;
+}
+.edm-ext-logo {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+.edm-ext-toolbar {
+  border-left: 1px solid #e1e1e1;
+  right: 0;
+  position: absolute;
+  top: 0;
+  width: 64px;
+}
+.edm-ext-toolbar:before,
+.edm-ext-toolbar:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.edm-ext-toolbar:after {
+  clear: both;
+}
+.edm-ext-toolbar .edm-ext-icon {
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #e1e1e1;
+  float: left;
+}
+.edm-ext-toolbar .edm-ext-icon:last-child {
+  border-right: 0;
+}
+.edm-ext-panel-left,
+.edm-ext-panel-right,
+.edm-ext-panel-content {
+  height: 40px;
+  padding: 0 15px;
+}
+.edm-ext-panel-left {
+  border-right: 1px solid #e1e1e1;
+  float: left;
+}
+.edm-ext-panel-right {
+  border-left: 1px solid #f1f1f1;
+  float: right;
+}
+.edm-ext-panel-content {
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #e1e1e1;
+  overflow: hidden;
+  padding: 0 15px;
+}
+.edm-ext-price-promise {
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+  float: left;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+}
+.edm-ext-price-promise .edm-ext-price-promise-inner {
+  border-right: 1px solid #e1e1e1;
+  cursor: pointer;
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  padding: 0 15px;
+  position: relative;
+}
+.edm-ext-price-promise .edm-ext-title {
+  color: #a62d3c;
+  font-size: 14px;
+  font-weight: bold;
+}
+.edm-ext-price-promise .edm-ext-title sup {
+  font-size: 50%;
+  font-style: normal;
+  line-height: 0;
+  position: relative;
+  top: -0.5em;
+  vertical-align: baseline;
+}
+.edm-ext-price-promise .edm-ext-title span {
+  color: #1a4287;
+}
+.edm-ext-price-promise:hover {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15);
+}
+.edm-ext-price-promise.active,
+.edm-ext-price-promise.active:hover {
+  box-shadow: none;
+}
+.edm-ext-price-promise.active .edm-ext-price-promise-inner,
+.edm-ext-price-promise.active:hover .edm-ext-price-promise-inner {
+  background: linear-gradient(to bottom, #e1e1e1 0%, #f5f5f5 100%);
+}
+.edm-ext-price-promise.disabled,
+.edm-ext-price-promise.disabled:hover {
+  box-shadow: none;
+}
+.edm-ext-price-promise.disabled .edm-ext-price-promise-inner,
+.edm-ext-price-promise.disabled:hover .edm-ext-price-promise-inner {
+  background: none;
+  cursor: auto;
+}
+.edm-ext-price-promise .edm-ext-found-vehicles {
+  margin-left: 30px;
+}
+.edm-ext-price-promise .edm-ext-price-promise-dropdown {
+  background: #f5f5f5;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+  display: none;
+  left: -2px;
+  position: absolute;
+  top: 30px;
+  width: 700px;
+}
+.edm-ext-price-promise .edm-ext-price-promise-dropdown nav {
+  border-right: 1px solid #e2e2e2;
+  height: 100%;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+}
+.edm-ext-price-promise.active .edm-ext-price-promise-dropdown {
+  display: block;
+}
+.edm-ext-special-offers-list {
+  background: #fff;
+  height: 263px;
+  list-style: none;
+  margin: 0 0 0 200px;
+  padding: 0;
+}
+.edm-ext-special-offers-list-item {
+  background: none;
+  border-bottom: 1px dashed #e2e2e2;
+  padding: 10px 15px;
+}
+.edm-ext-special-offers-list-item:before,
+.edm-ext-special-offers-list-item:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.edm-ext-special-offers-list-item:after {
+  clear: both;
+}
+.edm-ext-special-offers-list-item .edm-ext-image {
+  float: left;
+  height: 67px;
+  margin-right: 15px;
+  width: 100px;
+}
+.edm-ext-special-offers-list-item .edm-ext-image img {
+  max-width: 100px;
+  max-height: 67px;
+}
+.edm-ext-special-offers-list-item .edm-ext-info {
+  font-size: 11px;
+  overflow: hidden;
+}
+.edm-ext-special-offers-list-item .edm-ext-info .edm-ext-vehicle {
+  color: #0072bc;
+  font-size: 13px;
+}
+.edm-ext-special-offers-list-item .edm-ext-price {
+  margin-left: 15px;
+  float: right;
+  width: 110px;
+}
+.edm-ext-special-offers-list-item .edm-ext-price .edm-ext-msrp {
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  text-decoration: line-through;
+}
+.edm-ext-special-offers-list-item .edm-ext-price .edm-ext-spec {
+  font-size: 14px;
+  color: #58a200;
+  text-align: center;
+}
+.edm-ext-vehicles-list {
+  border-bottom: 1px solid #fff;
+  color: #555;
+  font-size: 11px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.edm-ext-vehicles-list-item {
+  background: none;
+  border-bottom: 1px solid #e2e2e2;
+  border-top: 1px solid #fff;
+  cursor: pointer;
+  padding: 5px;
+}
+.edm-ext-vehicles-list-item:hover {
+  background: #fff;
+  border-top-color: #fff;
+}
