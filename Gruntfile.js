@@ -45,6 +45,15 @@ module.exports = function(grunt) {
             }
         },
 
+        // https://github.com/gruntjs/grunt-contrib-less
+        less: {
+            dev: {
+                files: {
+                    'src/css/app.css': 'less/app.less'
+                }
+            }
+        },
+
         // https://github.com/gruntjs/grunt-contrib-qunit
         qunit: {
             all: ['test/*.html']
@@ -85,6 +94,11 @@ module.exports = function(grunt) {
             locales: {
                 files: ['<%= jsonlint.locales.src %>'],
                 tasks: ['jsonlint:locales']
+            },
+            // less
+            less: {
+                files: 'less/**/*.less',
+                tasks: ['less']
             }
         }
 
@@ -92,6 +106,7 @@ module.exports = function(grunt) {
 
     // plugins
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-jsonlint');
