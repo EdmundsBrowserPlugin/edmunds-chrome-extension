@@ -47,6 +47,8 @@
     ]
   }],
 
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+
   "web_accessible_resources": [
     "js/*",
     "img/*"
