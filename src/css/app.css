@@ -37,16 +37,23 @@
   -webkit-user-select: none;
   user-select: none;
 }
+.edm-ext-panel,
+.edm-ext-panel * {
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
 .edm-ext-panel {
   background: linear-gradient(to bottom, #f1f1f1 0%, #e1e1e1 100%);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   font-family: Arial, sans-serif;
   font-size: 12px;
+  font-weight: normal;
   height: 30px;
   left: 0;
   line-height: 1.5;
   min-width: 550px;
   position: fixed;
+  text-align: left;
   top: 0;
   width: 100%;
   z-index: 1000009;
