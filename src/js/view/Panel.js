@@ -1,38 +1,62 @@
 define([
-    'jquery',
-    'underscore',
     'text!template/panel.html',
     'text!template/special-offer.html'
-], function($, _, tpl, offerTpl) {
+], function(panelTemplate, specialOfferTemplate) {
 
-    function Panel() {
-        this.initialize();
-    }
-
-    Panel.prototype = {
-
-        tagName: 'div',
+    return Backbone.View.extend({
 
         className: 'edm-ext-panel',
 
-        template: tpl,
+        template: panelTemplate,
 
         initialize: function() {
             this.createElement();
             this.$vehicleListEl = this.$('.edm-ext-vehicles-list');
-            this.$('.edm-ext-price-promise-inner').on('click', function() {
-                var parent = $(this).parent();
+            // panel
+            this.$('.edm-ext-price-promise-inner').on('click', function(event) {
+                var parent = $(event.currentTarget).parent();
                 if (parent.hasClass('disabled')) {
                     return;
                 }
                 parent.toggleClass('active');
-            });
+                this.trigger('track', {
+                    category: 'Price Promise',
+                    action: parent.hasClass('active') ? 'Show' : 'Hide'
+                });
+            }.bind(this));
+            // settings
+            this.$('[data-action="settings"]').on('click', function() {
+                this.trigger('track', {
+                    category: 'Panel',
+                    action: 'Settings'
+                });
+            }.bind(this));
+            // close
             this.$('[data-action="close"]').on('click', function() {
                 this.$el.remove();
+                this.trigger('track', {
+                    category: 'Panel',
+                    action: 'Close'
+                });
             }.bind(this));
-
+            // vehicles list
             $(document).on('click', '.edm-ext-vehicles-list-item', function() {
-                this.renderOffers($(event.target).data('offers'));
+                var $el = $(event.target);
+                this.renderOffers($el.data('offers'));
+                this.trigger('track', {
+                    category: 'Price Promise Vehicles List',
+                    action: 'Select',
+                    label: $el.text()
+                });
+            }.bind(this));
+            // special offers list
+            $(document).on('click', '.edm-ext-special-offers-list-item button', function() {
+                var $el = $(event.target);
+                this.trigger('track', {
+                    category: 'Special Offer',
+                    action: 'View',
+                    label: $el.text()
+                });
             }.bind(this));
         },
 
@@ -40,7 +64,7 @@ define([
             var list = this.$('.edm-ext-special-offers-list');
             list.empty();
             _.each(offers, function(offer) {
-                list.append(_.template(offerTpl, offer));
+                list.append(_.template(specialOfferTemplate, offer));
             });
             return this;
         },
@@ -82,8 +106,6 @@ define([
             return this;
         }
 
-    };
-
-    return Panel;
+    });
 
 });
