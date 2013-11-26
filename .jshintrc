@@ -19,6 +19,10 @@
   "globals": {
     "chrome": true,
     "define": true,
-    "require": true
+    "require": true,
+    "jQuery": true,
+    "$": true,
+    "Backbone": true,
+    "_": true
   }
 }
