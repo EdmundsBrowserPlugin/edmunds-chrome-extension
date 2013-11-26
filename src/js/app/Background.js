@@ -3,11 +3,15 @@ define([
     'parser/default',
     'util/storage',
     'util/special-offers-manager',
-    'underscore',
-    'jquery'
-], function(App, DefaultParser, storage, man, _, $) {
+    'util/ga'
+], function(App, DefaultParser, storage, man, GoogleAnalytics) {
 
     return App.extend({
+
+        initialize: function() {
+            App.prototype.initialize.apply(this, arguments);
+            GoogleAnalytics.setAccount('UA-46028925-1').trackPageView();
+        },
 
         /**
          * @method sendTabAction
@@ -31,11 +35,11 @@ define([
         onMessage: function(message, sender) {
             console.log('BackgroundApp#onMessage');
             if (message.action) {
-                this.doAction(message.action, message.data, sender);
+                this.handleAction(message.action, message.data, sender);
             }
         },
 
-        doAction: function(action, data, sender) {
+        handleAction: function(action, data, sender) {
             console.log('BackgroundApp#doAction');
             switch (action) {
                 case 'parseDocument':
@@ -43,6 +47,9 @@ define([
                     break;
                 case 'fetchSpecialOffers':
                     this.fetchSpecialOffers(data, sender);
+                    break;
+                case 'trackEvent':
+                    GoogleAnalytics.trackEvent(data.category, data.action, data.label, data.value);
                     break;
                 default:
                     console.log('Unknown action');

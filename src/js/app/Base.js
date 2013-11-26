@@ -1,6 +1,4 @@
-define([
-    'underscore'
-], function(_) {
+define([], function() {
 
     var hasOwn = [].hasOwnProperty;
 
@@ -29,6 +27,11 @@ define([
                 data: data
             });
             return this;
+        },
+
+        trackEvent: function(event) {
+            console.log('BaseApp#trackEvent');
+            this.sendAction('trackEvent', event);
         }
 
     };

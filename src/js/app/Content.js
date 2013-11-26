@@ -1,9 +1,7 @@
 define([
-    'jquery',
-    'underscore',
     'app/Base',
     'view/Panel'
-], function($, _, App, Panel) {
+], function(App, Panel) {
 
     return App.extend({
 
@@ -32,6 +30,7 @@ define([
         injectPanel: function() {
             this.panel = new Panel();
             document.body.appendChild(this.panel.el);
+            this.panel.on('track', this.trackEvent, this);
             return this;
         },
 
