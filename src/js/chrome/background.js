@@ -1,11 +1,10 @@
 require([
     'app/Background',
-    'util/deferred',
     'util/request',
     'util/storage'
-], function(BackgroundApp, Deferred, request, storage) {
+], function(BackgroundApp, request, storage) {
 
-    var setup = new Deferred();
+    var setup = new jQuery.Deferred();
 
     function checkForUpdates() {
         storage.getLastUpdatedDate(function(response) {

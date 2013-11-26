@@ -1,6 +1,4 @@
-define([
-    'util/deferred'
-], function(Deferred) {
+define([], function() {
 
     var baseUrl = chrome.extension.getURL('');
 
@@ -8,7 +6,7 @@ define([
 
         getJSON: function(url, callback) {
             var xhr = new XMLHttpRequest(),
-                deferred = new Deferred();
+                deferred = new jQuery.Deferred();
             deferred.done(callback);
             xhr.open('GET', baseUrl + url);
             xhr.onreadystatechange = function() {

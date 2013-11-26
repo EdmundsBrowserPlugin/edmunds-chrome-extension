@@ -1,7 +1,4 @@
-define([
-    'jquery',
-    'underscore'
-], function($, _) {
+define([], function() {
 
     return {
 
@@ -14,7 +11,7 @@ define([
         },
 
         fetchSpecialOffers: function(make, model, years) {
-            var deferred = new $.Deferred(),
+            var deferred = new jQuery.Deferred(),
                 parseSpecialOffers = this.parseSpecialOffers;
             deferred.notify('fetching...');
             $.ajax({

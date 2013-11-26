@@ -8,13 +8,6 @@ require.config({
     },
 
     shim: {
-        backbone: {
-            exports: 'Backbone',
-            deps: ['jquery', 'underscore']
-        },
-        underscore: {
-            exports: '_'
-        },
         'google-analytics': {
             exports: '_gaq'
         }
