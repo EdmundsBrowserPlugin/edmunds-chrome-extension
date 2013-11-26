@@ -42,11 +42,15 @@ define([
             // vehicles list
             $(document).on('click', '.edm-ext-vehicles-list-item', function() {
                 var $el = $(event.target);
+                if (!$el.hasClass('edm-ext-vehicles-list-item')) {
+                    $el = $el.closest('.edm-ext-vehicles-list-item');
+                }
+                console.log($el);
                 this.renderOffers($el.data('offers'));
                 this.trigger('track', {
                     category: 'Price Promise Vehicles List',
                     action: 'Select',
-                    label: $el.text()
+                    label: $el.find('.edm-ext-name').text()
                 });
             }.bind(this));
             // special offers list
@@ -85,9 +89,10 @@ define([
             list.empty();
             _.each(response, function(models, make) {
                 _.each(models, function(offers, model) {
-                    var el = $('<li class="edm-ext-vehicles-list-item"></li>');
-                    el.text([make, model, '(' + offers.length + ')'].join(' ')).data('offers', offers);
-                    console.log(model);
+                    var el = $('<li class="edm-ext-vehicles-list-item"><span class="edm-ext-name"></span> <span class="edm-ext-count"></span></li>');
+                    el.find('.edm-ext-name').text([make, model].join(' '));
+                    el.find('.edm-ext-count').text('(' + offers.length + ')');
+                    el.data('offers', offers);
                     list.append(el);
                     if (count === 0) {
                         this.renderOffers(offers);
