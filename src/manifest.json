@@ -29,7 +29,14 @@
   ],
 
   "background": {
-    "page": "background.html"
+    "scripts": [
+      "lib/jquery/jquery.js",
+      "lib/underscore/underscore.js",
+      "lib/backbone/backbone.js",
+      "lib/requirejs/require.js",
+      "js/config.js",
+      "js/chrome/background.js"
+    ]
   },
 
   "content_scripts": [{
@@ -38,9 +45,12 @@
       "https://*/*"
     ],
     "js": [
-      "js/lib/requirejs/require.js",
-      "js/chrome/override-content-require.js",
+      "lib/jquery/jquery.js",
+      "lib/underscore/underscore.js",
+      "lib/backbone/backbone.js",
+      "lib/requirejs/require.js",
       "js/config.js",
+      "js/chrome/override-content-require.js",
       "js/chrome/content.js"
     ],
     "css": [
@@ -48,9 +58,12 @@
     ]
   }],
 
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+
   "web_accessible_resources": [
+    "img/*",
     "js/*",
-    "img/*"
+    "lib/*"
   ]
 
 }

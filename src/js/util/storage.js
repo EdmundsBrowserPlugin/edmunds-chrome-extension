@@ -1,11 +1,9 @@
-define([
-    'util/deferred'
-], function(Deferred) {
+define([], function() {
 
     var storage = chrome.storage.local;
 
     function _set(items, callback) {
-        var deferred = new Deferred();
+        var deferred = new jQuery.Deferred();
         deferred.done(callback);
         storage.set(items, function() {
             deferred.resolve();
@@ -14,7 +12,7 @@ define([
     }
 
     function _get(keys, callback) {
-        var deferred = new Deferred();
+        var deferred = new jQuery.Deferred();
         deferred.done(callback);
         storage.get(keys, function(value) {
             deferred.resolve(value);
