@@ -2,8 +2,7 @@
 
     var zipInput = document.getElementById('zipInput'),
         zipChangeButton = document.getElementById('zipChangeButton'),
-        zipUpdateButton = document.getElementById('zipUpdateButton'),
-        currentZip;
+        zipUpdateButton = document.getElementById('zipUpdateButton');
 
     function validateZip(zip) {
         var deferred = new $.Deferred();
