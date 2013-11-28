@@ -4,7 +4,8 @@ require([
     'util/storage'
 ], function(BackgroundApp, request, storage) {
 
-    var setup = new jQuery.Deferred();
+    var setup = new jQuery.Deferred(),
+        defaultZip = 90401;
 
     function checkForUpdates() {
         storage.getLastUpdatedDate(function(response) {
@@ -25,7 +26,10 @@ require([
         request.getJSON('data/make-models.json', function(makeModels) {
             storage.setMakeModels(makeModels, function() {
                 console.log('Predefined data was loaded.');
-                setup.resolve();
+                // temporary set default zip and then resolve
+                storage.set({ zip: defaultZip }, function() {
+                    setup.resolve();
+                });
             });
         });
     }
@@ -38,6 +42,7 @@ require([
     setup.done(function() {
         /* jshint unused:false */
         var app = new BackgroundApp();
+        app.zip = defaultZip;
     });
 
     checkForUpdates();

@@ -22,6 +22,7 @@
   },
 
   "permissions": [
+    "geolocation",
     "storage",
     "tabs",
     "http://api.edmunds.com/*",

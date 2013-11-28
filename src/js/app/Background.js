@@ -51,6 +51,9 @@ define([
                 case 'trackEvent':
                     GoogleAnalytics.trackEvent(data.category, data.action, data.label, data.value);
                     break;
+                case 'setZip':
+                    this.setZip(data);
+                    break;
                 default:
                     console.log('Unknown action');
             }
@@ -65,18 +68,18 @@ define([
             storage.getMakeModels(function(response) {
                 var vehicles = DefaultParser.parse(data, response.makeModels);
                 if (sender.tab) {
-                    //this.sendTabAction(sender.tab.id, 'updateVehicles', vehicles);
                     this.fetchSpecialOffers(vehicles, sender);
                 }
             }.bind(this));
         },
 
         fetchSpecialOffers: function(vehicles, sender) {
-            var requests = [];
+            var requests = [],
+                zip = this.zip;
             console.log('#fetchSpecialOffers');
             _.each(vehicles, function(models, make) {
                 _.each(models, function(years, model) {
-                    requests.push(man.fetchSpecialOffers(make, model, years));
+                    requests.push(man.fetchSpecialOffers(make, model, years, zip));
                 });
             });
             return $.when.apply({}, requests).done(function() {
@@ -93,6 +96,20 @@ define([
                 });
                 this.sendTabAction(sender.tab.id, 'updateSpecialOffers', offers);
             }.bind(this));
+        },
+
+        setZip: function(zip) {
+            this.zip = zip;
+            // send message into all content scripts
+            chrome.tabs.query({}, function(tabs) {
+                tabs.forEach(function(tab) {
+                    chrome.tabs.sendMessage(tab.id, {
+                        action: 'setZip',
+                        data: zip
+                    });
+                });
+            });
+            return this;
         }
 
     });

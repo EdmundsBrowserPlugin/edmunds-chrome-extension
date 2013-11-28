@@ -10,6 +10,7 @@ define([
             document.addEventListener('DOMSubtreeModified', this.onDOMChange.bind(this));
             this.parseDocument = _.throttle(this.parseDocument, 2000);
             this.injectPanel();
+            chrome.storage.local.get(['location', 'zip'], this.updateLocation.bind(this));
         },
 
         onDOMChange: function(event) {
@@ -40,11 +41,11 @@ define([
         onMessage: function(message) {
             console.log('ContentApp#onMessage');
             switch (message.action) {
-                case 'updateVehicles':
-                    this.updateVehicles(message.data);
-                    break;
                 case 'updateSpecialOffers':
                     this.updateSpecialOffers(message.data);
+                    break;
+                case 'setZip':
+                    this.parseDocument();
                     break;
             }
         },
@@ -55,7 +56,7 @@ define([
         },
 
         updateSpecialOffers: function(response) {
-            console.log('#updateSpecialOffers');
+            console.log('ContentApp#updateSpecialOffers');
             if (_.isEmpty(response)) {
                 this.panel.resetSpecialOffers();
                 return;

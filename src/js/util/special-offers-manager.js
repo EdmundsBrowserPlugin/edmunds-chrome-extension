@@ -10,7 +10,7 @@ define([], function() {
             return offers;
         },
 
-        fetchSpecialOffers: function(make, model, years) {
+        fetchSpecialOffers: function(make, model, years, zip) {
             var deferred = new jQuery.Deferred(),
                 parseSpecialOffers = this.parseSpecialOffers;
             deferred.notify('fetching...');
@@ -22,8 +22,7 @@ define([], function() {
                     'dealers/newused/list/'
                 ].join('/'),
                 data: {
-                    zip: 12345,
-                    range: 50,
+                    zip: zip,
                     years: years,
                     groupItemsSize: 1,
                     pageSize: 3
