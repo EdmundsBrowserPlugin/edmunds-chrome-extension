@@ -1,0 +1,36 @@
+.black-list {
+  margin: 10px 0;
+
+  .list-group-item {
+    color: #777;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px 10px;
+    .transition(color .15s ease);
+
+    &:hover {
+      color: @brand-primary;
+    }
+
+    .glyphicon {
+      cursor: pointer;
+      float: left;
+      font-size: 12px;
+      margin-right: 10px;
+      opacity: .5;
+      .transition(opacity .15s ease);
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .glyphicon-remove {
+      color: #a62d3c;
+    }
+
+    .hostname {
+      overflow: hidden;
+    }
+  }
+
+}

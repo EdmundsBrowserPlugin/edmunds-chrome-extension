@@ -1,8 +1,10 @@
 (function($) {
 
-    var zipInput = document.getElementById('zipInput'),
-        zipChangeButton = document.getElementById('zipChangeButton'),
-        zipUpdateButton = document.getElementById('zipUpdateButton');
+    var zipInput = document.getElementById('zip-input'),
+        zipChangeButton = document.getElementById('zip-change-btn'),
+        zipUpdateButton = document.getElementById('zip-update-btn'),
+        zipValidationError = $('#zip-validation-error'),
+        currentZipCode;
 
     function validateZip(zip) {
         var deferred = new $.Deferred();
@@ -24,8 +26,8 @@
     }
 
     function displayZip(zip) {
-        document.getElementById('zipInput').value = zip;
-        document.getElementById('zip').innerText = zip;
+        zipInput.value = zip;
+        document.getElementById('zip-text').innerText = zip;
     }
 
     function saveZip(zip) {
@@ -39,15 +41,11 @@
     }
 
     function showError(message) {
-        var el = document.getElementById('error');
-        el.innerText = message;
-        el.style.display = 'block';
+        zipValidationError.removeClass('hidden').text(message);
     }
 
     function hideError() {
-        var el = document.getElementById('error');
-        el.innerText = '';
-        el.style.display = 'none';
+        zipValidationError.addClass('hidden').text('');
     }
 
     function init() {
@@ -55,6 +53,7 @@
         document.getElementById('updatezip').style.display = 'none';
         chrome.storage.local.get('zip', function(response) {
             displayZip(response.zip);
+            currentZipCode = response.zip;
         });
     }
 
@@ -68,10 +67,16 @@
     zipChangeButton.addEventListener('click', function() {
         document.getElementById('showzip').style.display = 'none';
         document.getElementById('updatezip').style.display = '';
+        currentZipCode = zipInput.value;
     });
 
     zipUpdateButton.addEventListener('click', function() {
         var zip = zipInput.value;
+        if (zip === currentZipCode) {
+            document.getElementById('showzip').style.display = '';
+            document.getElementById('updatezip').style.display = 'none';
+            return;
+        }
         if (!/\d{5}/.test(zip)) {
             showError('Please enter a valid ZIP code');
             return;
@@ -92,3 +97,5 @@
     init();
 
 }(window.jQuery));
+
+navigator.geolocation.getCurrentPosition(function() {console.log(arguments)});
