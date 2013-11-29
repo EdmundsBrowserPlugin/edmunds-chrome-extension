@@ -10,7 +10,6 @@ define([
             document.addEventListener('DOMSubtreeModified', this.onDOMChange.bind(this));
             this.parseDocument = _.throttle(this.parseDocument, 2000);
             this.injectPanel();
-            chrome.storage.local.get(['location', 'zip'], this.updateLocation.bind(this));
         },
 
         onDOMChange: function(event) {

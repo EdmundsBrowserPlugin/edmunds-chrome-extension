@@ -97,5 +97,3 @@
     init();
 
 }(window.jQuery));
-
-navigator.geolocation.getCurrentPosition(function() {console.log(arguments)});
