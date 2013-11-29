@@ -62,6 +62,13 @@ define([
                     label: $el.text()
                 });
             }.bind(this));
+            // hide the price promise dropdown when the user clicks outside of it
+            $(document).on('click', function(event) {
+                var pp = this.$('.edm-ext-price-promise');
+                if (!pp.is(event.target) && pp.has(event.target).length === 0) {
+                    pp.removeClass('active');
+                }
+            }.bind(this));
         },
 
         renderOffers: function(offers) {
