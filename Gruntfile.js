@@ -23,6 +23,9 @@ module.exports = function(grunt) {
                 options: {
                     jshintrc: 'test/.jshintrc'
                 }
+            },
+            tasks: {
+                src: ['tasks/**/*.js']
             }
         },
 
@@ -111,6 +114,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-jsonlint');
+    grunt.loadTasks('tasks');
 
     // tasks
     grunt.registerTask('test', [
