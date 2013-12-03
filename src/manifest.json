@@ -1,26 +1,20 @@
 {
   "manifest_version": 2,
   "minimum_chrome_version": "29",
-
   "name": "__MSG_application_name__",
   "description": "__MSG_application_description__",
-  "version": "0.0.0",
-
+  "version": "0.0.3",
   "icons": {
     "16": "img/icons/16.png",
     "48": "img/icons/48.png",
     "128": "img/icons/128.png"
   },
-
   "default_locale": "en",
-
   "options_page": "options.html",
-
   "browser_action": {
     "default_title": "__MSG_default_title__",
     "default_icon": "img/icons/48.png"
   },
-
   "permissions": [
     "geolocation",
     "storage",
@@ -30,7 +24,6 @@
     "http://www.edmunds.com/*",
     "https://www.edmunds.com/*"
   ],
-
   "background": {
     "scripts": [
       "lib/jquery/jquery.js",
@@ -41,32 +34,30 @@
       "js/chrome/background.js"
     ]
   },
-
-  "content_scripts": [{
-    "matches": [
-      "http://*/*",
-      "https://*/*"
-    ],
-    "js": [
-      "lib/jquery/jquery.js",
-      "lib/underscore/underscore.js",
-      "lib/backbone/backbone.js",
-      "lib/requirejs/require.js",
-      "js/config.js",
-      "js/chrome/override-content-require.js",
-      "js/chrome/content.js"
-    ],
-    "css": [
-      "css/app.css"
-    ]
-  }],
-
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "lib/jquery/jquery.js",
+        "lib/underscore/underscore.js",
+        "lib/backbone/backbone.js",
+        "lib/requirejs/require.js",
+        "js/config.js",
+        "js/chrome/override-content-require.js",
+        "js/chrome/content.js"
+      ],
+      "css": [
+        "css/app.css"
+      ]
+    }
+  ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-
   "web_accessible_resources": [
     "img/*",
     "js/*",
     "lib/*"
   ]
-
 }
