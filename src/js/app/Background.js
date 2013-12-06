@@ -1,115 +1,64 @@
 define([
-    'app/Base',
-    'parser/default',
-    'util/storage',
-    'util/special-offers-manager',
-    'util/ga'
-], function(App, DefaultParser, storage, man, GoogleAnalytics) {
+    'app/base'
+], function(App) {
 
     return App.extend({
 
-        initialize: function() {
-            App.prototype.initialize.apply(this, arguments);
-            GoogleAnalytics.setAccount('UA-46028925-1').trackPageView();
+        initialize: function(options) {
+            console.log('BackgroundApp#initialize');
+            App.prototype.initialize.call(this, options);
+            this.initializeBrowserAction();
         },
 
-        /**
-         * @method sendTabAction
-         * @param {Number} tabId
-         * @param {String} name
-         * @param {Object} data
-         * @chainable
-         */
-        sendTabAction: function(tabId, name, data) {
-            console.log('BackgroundApp#sendTabAction');
-            chrome.tabs.sendMessage(tabId, {
-                action: name,
-                data: data
-            });
-            return this;
-        },
-
-        /**
-         * @override
-         */
-        onMessage: function(message, sender) {
-            console.log('BackgroundApp#onMessage');
-            if (message.action) {
-                this.handleAction(message.action, message.data, sender);
-            }
-        },
-
-        handleAction: function(action, data, sender) {
-            console.log('BackgroundApp#doAction');
-            switch (action) {
-                case 'parseDocument':
-                    this.parseDocument(data, sender);
-                    break;
-                case 'fetchSpecialOffers':
-                    this.fetchSpecialOffers(data, sender);
-                    break;
-                case 'trackEvent':
-                    GoogleAnalytics.trackEvent(data.category, data.action, data.label, data.value);
-                    break;
-                case 'setZip':
-                    this.setZip(data);
-                    break;
-                default:
-                    console.log('Unknown action');
-            }
-        },
-
-        parseDocument: function(data, sender) {
-            console.log('BackgroundApp#parseDocument');
-            if (!sender.url) {
-                return;
-            }
-            console.log('Parsing ' + sender.url);
-            storage.getMakeModels(function(response) {
-                var vehicles = DefaultParser.parse(data, response.makeModels);
-                if (sender.tab) {
-                    this.fetchSpecialOffers(vehicles, sender);
-                }
-            }.bind(this));
-        },
-
-        fetchSpecialOffers: function(vehicles, sender) {
-            var requests = [],
-                zip = this.zip;
-            console.log('#fetchSpecialOffers');
-            _.each(vehicles, function(models, make) {
-                _.each(models, function(years, model) {
-                    requests.push(man.fetchSpecialOffers(make, model, years, zip));
+        initializeBrowserAction: function() {
+            console.log('BackgroundApp#initializeBrowserAction');
+            chrome.browserAction.onClicked.addListener(function() {
+                chrome.tabs.create({
+                    url: 'http://www.edmunds.com'
                 });
             });
-            return $.when.apply({}, requests).done(function() {
-                var offers = {},
-                    args = [].slice.call(arguments);
-                _.each(args, function(data) {
-                    if (data.offers.length === 0) {
-                        return;
-                    }
-                    if (!offers[data.make]) {
-                        offers[data.make] = {};
-                    }
-                    offers[data.make][data.model] = data.offers;
-                });
-                this.sendTabAction(sender.tab.id, 'updateSpecialOffers', offers);
-            }.bind(this));
         },
 
-        setZip: function(zip) {
-            this.zip = zip;
-            // send message into all content scripts
-            chrome.tabs.query({}, function(tabs) {
+        handleRuntimeMessage: function(message) {
+            console.log('BackgroundApp#handleRuntimeMessage');
+            switch (message.action) {
+                case 'startContentApplications':
+                    this.startContentApplications(message.data);
+                    break;
+                case 'stopContentApplications':
+                    this.stopContentApplications(message.data);
+                    break;
+            }
+        },
+
+        startContentApplications: function(url) {
+            console.log('BackgroundApp#startContentApplications');
+            chrome.tabs.query({ url: url + '/*' }, function(tabs) {
                 tabs.forEach(function(tab) {
-                    chrome.tabs.sendMessage(tab.id, {
-                        action: 'setZip',
-                        data: zip
-                    });
-                });
-            });
-            return this;
+                    chrome.tabs.sendMessage(tab.id, { action: 'start' });
+                }, this);
+            }.bind(this));
+            this.createNotification(url + ' was removed from black list.');
+        },
+
+        stopContentApplications: function(url) {
+            console.log('BackgroundApp#stopContentApplications');
+            chrome.tabs.query({ url: url + '/*' }, function(tabs) {
+                tabs.forEach(function(tab) {
+                    chrome.tabs.sendMessage(tab.id, { action: 'stop' });
+                }, this);
+            }.bind(this));
+            this.createNotification(url + ' was added to black list.');
+        },
+
+        createNotification: function(message) {
+            console.log('BackgroundApp#createNotification');
+            chrome.notifications.create('', {
+                type: 'basic',
+                title: 'Edmunds Buddy',
+                message: message,
+                iconUrl: 'img/icon/128.png'
+            }, function() {});
         }
 
     });
