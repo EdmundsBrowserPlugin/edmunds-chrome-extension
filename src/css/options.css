@@ -2856,6 +2856,14 @@ header {
 .checkbox.disabled {
   color: #999;
 }
+.input-group-sm > .input-group-select {
+  padding: 0 1px;
+}
+.input-group-sm > .input-group-select select {
+  height: 26px;
+  min-width: 80px;
+  padding: 3px 6px;
+}
 .black-list {
   margin: 10px 0;
 }
@@ -2885,7 +2893,7 @@ header {
 .black-list .list-group-item .glyphicon-remove {
   color: #a62d3c;
 }
-.black-list .list-group-item .hostname {
+.black-list .list-group-item .url {
   overflow: hidden;
 }
 .section-title {
