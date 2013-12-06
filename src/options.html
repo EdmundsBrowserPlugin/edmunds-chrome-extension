@@ -1,86 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edmunds Buddy Settings</title>
-	<link rel="stylesheet" href="css/options.css">
+    <title>Settings</title>
+    <link rel="stylesheet" href="css/options.css">
 </head>
 <body>
 
-<header class="col-md-12">
-	<img src="../img/edmunds-logo.png">
+<header>
+    <img src="img/edmunds-logo.png">
 </header>
 
 <div class="container">
-
-	<div class="row">
-
-		<div class="col-md-4 col-sm-5">
-
-			<section>
-				<h1 class="section-title">Configure ZIP</h1>
-				<div class="section-body">
-					<p class="section-description">Configure zip code to get the best offers near you.</p>
-					<div id="showzip">
-						<span id="zip-text"></span>
-						<button class="btn btn-link btn-sm" type="button" id="zip-change-btn">Change</button>
-					</div>
-					<div id="updatezip">
-						<div class="input-group input-group-sm" style="width: 120px;">
-							<input type="text" class="form-control" maxlength="5" id="zip-input">
-						<span class="input-group-btn">
-							<button class="btn btn-primary" type="button" id="zip-update-btn">Update</button>
-						</span>
-						</div>
-						<div class="callout callout-danger hidden" id="zip-validation-error">Please enter a valid zip code</div>
-					</div>
-					<div class="checkbox disabled">
-						<label>
-							<input type="checkbox" disabled="disabled">
-							Allow access to your physical location to set zip code automatically.
-						</label>
-					</div>
-				</div>
-			</section>
-
-		</div>
-
-		<div class="col-md-8 col-sm-7">
-
-			<section>
-				<h1 class="section-title">Manage Black List</h1>
-				<div class="section-body">
-					<p class="section-description">Build a black list of websites where you would rather hide the extension's panel.</p>
-					<div class="input-group input-group-sm">
-						<input type="text" class="form-control" disabled="disabled">
-						<span class="input-group-btn">
-							<buttton type="button" class="btn btn-primary" disabled="disabled">Add</buttton>
-						</span>
-					</div>
-					<ul class="list-group black-list">
-						<li class="list-group-item">
-							<span class="glyphicon glyphicon-remove" data-action="remove" data-host=""></span>
-							<div class="hostname">developer.chrome.com</div>
-						</li>
-						<li class="list-group-item">
-							<span class="glyphicon glyphicon-remove" data-action="remove" data-host=""></span>
-							<div class="hostname">github.com</div>
-						</li>
-						<li class="list-group-item">
-							<span class="glyphicon glyphicon-remove" data-action="remove" data-host=""></span>
-							<div class="hostname">mail.google.com</div>
-						</li>
-					</ul>
-				</div>
-			</section>
-
-		</div>
-
-	</div>
-
+    <div class="row">
+        <div class="col-md-4 col-sm-5">
+            <!-- zip-code-section -->
+            <section id="zip-code-section">
+                <h1 class="section-title">Configure ZIP</h1>
+                <div class="section-body">
+                    <p class="section-description">Configure zip code to get the best offers near you.</p>
+                    <div id="showzip">
+                        <span id="zip-text"></span>
+                        <button class="btn btn-link btn-sm" type="button" data-action="change" id="zip-change-btn">Change</button>
+                    </div>
+                    <div id="updatezip" class="hidden">
+                        <div class="input-group input-group-sm" style="width: 120px;">
+                            <input type="text" class="form-control" maxlength="5" id="zip-input">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" data-action="update" id="zip-update-btn">Update</button>
+                            </span>
+                        </div>
+                        <div class="callout callout-danger hidden" id="zip-validation-error">Please enter a valid zip code</div>
+                    </div>
+                    <div class="checkbox disabled hidden">
+                        <label>
+                            <input type="checkbox" disabled="disabled">
+                            Allow access to your physical location to set zip code automatically.
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <!--/zip-code-section -->
+        </div>
+        <div class="col-md-8 col-sm-7">
+            <!-- black-list-section -->
+            <section id="black-list-section">
+                <h1 class="section-title">Manage Black List</h1>
+                <div class="section-body">
+                    <p class="section-description">Build a black list of websites where you would rather hide the extension's panel.</p>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon input-group-select">
+                            <select class="form-control">
+                                <option value="http://">http://</option>
+                                <option value="https://">https://</option>
+                            </select>
+                        </span>
+                        <input type="text" class="form-control" placeholder="example.com">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" data-action="add">Add</button>
+                        </span>
+                    </div>
+                    <ul class="list-group black-list"></ul>
+                </div>
+            </section>
+            <!--/black-list-section -->
+        </div>
+    </div>
 </div>
 
+<script src="lib/requirejs/require.js"></script>
 <script src="lib/jquery/jquery.js"></script>
-<script src="js/chrome/options.js"></script>
+<script src="lib/underscore/underscore.js"></script>
+<script src="lib/backbone/backbone.js"></script>
+
+<script src="js/config.js"></script>
+<script src="js/options.js"></script>
 
 </body>
 </html>
