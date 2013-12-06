@@ -1,70 +1,71 @@
 define([
-    'app/Base',
-    'view/Panel'
-], function(App, Panel) {
+    'app/base',
+    'storage/blacklist'
+], function(App, BlackListStorage) {
 
     return App.extend({
 
-        initialize: function() {
-            App.prototype.initialize.apply(this, arguments);
-            document.addEventListener('DOMSubtreeModified', this.onDOMChange.bind(this));
-            this.parseDocument = _.throttle(this.parseDocument, 2000);
-            this.injectPanel();
+        defaults: {
+            parsingPeriod: 2000
         },
 
-        onDOMChange: function(event) {
-            var $el = $(event.target);
-            if ($el.hasClass('edm-ext-panel')) {
-                return;
-            }
-            if ($el.closest('.edm-ext-panel').length !== 0) {
-                return;
-            }
-            this.parseDocument();
+        initialize: function(options) {
+            console.log('ContentApp#initialize');
+            App.prototype.initialize.call(this, options);
+
+            this.onDocumentChange = this.onDocumentChange.bind(this);
+            this.parseDocument = _.throttle(this.parseDocument, options.parsingPeriod);
+
+            BlackListStorage.get(function(items) {
+                if (!_.contains(items, location.origin)) {
+                    this.start();
+                }
+            }.bind(this));
+
+            this.btn = $('<button>exclude host</button>');
         },
 
-        getDocumentContent: function() {
-            return document.body.innerText.replace(this.panel.el.innerText, '');
-        },
-
-        injectPanel: function() {
-            this.panel = new Panel();
-            document.body.appendChild(this.panel.el);
-            this.panel.on('track', this.trackEvent, this);
-            return this;
-        },
-
-        /**
-         * @override
-         */
-        onMessage: function(message) {
-            console.log('ContentApp#onMessage');
+        handleRuntimeMessage: function(message) {
+            console.log('ContentApp#handleRuntimeMessage');
             switch (message.action) {
-                case 'updateSpecialOffers':
-                    this.updateSpecialOffers(message.data);
+                case 'stop':
+                    this.stop();
                     break;
-                case 'setZip':
-                    this.parseDocument();
+                case 'start':
+                    this.start();
                     break;
             }
+        },
+
+        onDocumentChange: function() {
+            console.log('ContentApp#onDocumentChange');
+            this.parseDocument();
         },
 
         parseDocument: function() {
             console.log('ContentApp#parseDocument');
-            this.sendAction('parseDocument', this.getDocumentContent());
         },
 
-        updateSpecialOffers: function(response) {
-            console.log('ContentApp#updateSpecialOffers');
-            if (_.isEmpty(response)) {
-                this.panel.resetSpecialOffers();
-                return;
-            }
-            if (_.isEqual(response, this.previousResponse)) {
-                return;
-            }
-            this.previousResponse = response;
-            this.panel.setSpecialOffers(response);
+        stop: function() {
+            console.log('ContentApp#stop');
+            document.removeEventListener('DOMSubtreeModified', this.onDocumentChange);
+            this.btn.remove();
+        },
+
+        start: function() {
+            console.log('ContentApp#start');
+            this.parseDocument();
+            document.addEventListener('DOMSubtreeModified', this.onDocumentChange);
+            $('body').prepend(this.btn);
+            this.btn.on('click', this.exclude.bind(this));
+        },
+
+        exclude: function() {
+            var url = location.origin;
+            console.log('ContentApp#exclude');
+            BlackListStorage.add(url, function() {
+                chrome.runtime.sendMessage({ action: 'stopContentApplications', data: url });
+            });
         }
 
     });
