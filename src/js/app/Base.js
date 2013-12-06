@@ -1,50 +1,30 @@
-define([], function() {
+define(function() {
 
-    var hasOwn = [].hasOwnProperty;
-
-    function BaseApp() {
-        this.initialize.apply(this, arguments);
+    function App(options) {
+        this.options = _.defaults(options || {}, this.defaults);
+        this.initialize.call(this, this.options);
     }
 
-    BaseApp.prototype = {
+    App.prototype = {
 
-        /**
-         * @method initialize
-         * @chainable
-         */
+        defaults: {},
+
         initialize: function() {
             console.log('BaseApp#initialize');
-            chrome.runtime.onMessage.addListener(this.onMessage.bind(this));
-            return this;
+            chrome.runtime.onMessage.addListener(this.handleRuntimeMessage.bind(this));
         },
 
-        onMessage: function() {},
-
-        sendAction: function(name, data) {
-            console.log('BaseApp#sendAction');
-            chrome.runtime.sendMessage({
-                action: name,
-                data: data
-            });
-            return this;
-        },
-
-        trackEvent: function(event) {
-            console.log('BaseApp#trackEvent');
-            this.sendAction('trackEvent', event);
+        handleRuntimeMessage: function() {
+            console.log('BaseApp#handleRuntimeMessage');
         }
 
     };
 
-    /**
-     * @method extend
-     * @static
-     */
-    BaseApp.extend = function(protoProperties, staticProperties) {
+    App.extend = function(protoProperties, staticProperties) {
         var parent = this,
             child, Surrogate;
         // create constructor for the new subclass
-        if (protoProperties && hasOwn.call(protoProperties, 'constructor')) {
+        if (protoProperties && _.has(protoProperties, 'constructor')) {
             child = protoProperties.constructor;
         } else {
             child = function() {
@@ -66,6 +46,6 @@ define([], function() {
         return child;
     };
 
-    return BaseApp;
+    return App;
 
 });
