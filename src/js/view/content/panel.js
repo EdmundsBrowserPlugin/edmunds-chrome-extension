@@ -10,12 +10,13 @@ define([
         template: _.template(template),
 
         events: {
-            'click [data-action="toggle-view"]': 'toggleView',
-            'click [data-action="close"]': 'close',
-            'click [data-action="exclude"]': 'exclude'
+            'click [data-action="toggle-view"]': 'onToggleViewClick',
+            'click [data-action="close"]': 'onCloseClick',
+            'click [data-action="exclude"]': 'onExcludeClick'
         },
 
-        initialize: function() {
+        initialize: function(options) {
+            this[options.collapsed ? 'collapse' : 'expand']();
         },
 
         render: function() {
@@ -24,25 +25,34 @@ define([
             return this;
         },
 
-        toggleView: function() {
-            var className = 'edm-ext-panel-collapsed';
-            if (this.$el.hasClass(className)) {
-                this.$el.removeClass(className);
+        collapse: function() {
+            this.$el.addClass('edm-ext-panel-collapsed');
+            return this;
+        },
+
+        expand: function() {
+            this.$el.removeClass('edm-ext-panel-collapsed');
+            return this;
+        },
+
+        onToggleViewClick: function() {
+            if (this.$el.hasClass('edm-ext-panel-collapsed')) {
+                this.expand();
                 analytics.track('Extension Panel', 'Toggle View', 'Expand');
             } else {
-                this.$el.addClass(className);
+                this.collapse();
                 analytics.track('Extension Panel', 'Toggle View', 'Collapse');
             }
             return this;
         },
 
-        close: function() {
+        onCloseClick: function() {
             this.trigger('close');
             analytics.track('Extension Panel', 'Close');
             return this;
         },
 
-        exclude: function() {
+        onExcludeClick: function() {
             this.trigger('exclude', location.origin);
             analytics.track('Extension Panel', 'Exclude URL', location.origin);
             return this;
