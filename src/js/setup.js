@@ -8,6 +8,19 @@
         ]
     };
 
+    function showSettingsPage() {
+        var url = chrome.runtime.getURL('/options.html');
+        chrome.tabs.query({ url: url }, function(tabs) {
+            if (tabs.length !== 0) {
+                tabs.forEach(function(tab) {
+                    chrome.tabs.update(tab.id, { active: true });
+                });
+            } else {
+                chrome.tabs.create({ url: url });
+            }
+        });
+    }
+
     function showWelcomeNotification() {
         chrome.notifications.create('', {
             type: 'basic',
@@ -20,9 +33,7 @@
         }, function(welcomeNotificationId) {
             chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
                 if (welcomeNotificationId === notificationId && buttonIndex === 0) {
-                    chrome.tabs.create({
-                        url: chrome.runtime.getURL('/options.html')
-                    });
+                    showSettingsPage();
                 }
             });
         });
