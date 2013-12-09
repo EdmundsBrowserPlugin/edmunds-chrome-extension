@@ -24,7 +24,10 @@ define([
         },
 
         initializePanel: function() {
-            var view = this.panel = new PanelView();
+            var view = this.panel = new PanelView({
+                // TODO
+                //collapsed: true
+            });
             view.on('close', this.stop, this);
             view.on('exclude', this.excludeUrl, this);
         },
@@ -37,6 +40,12 @@ define([
                     break;
                 case 'start':
                     this.start();
+                    break;
+                case 'collapse':
+                    this.panel.collapse();
+                    break;
+                case 'expand':
+                    this.panel.expand();
                     break;
             }
         },

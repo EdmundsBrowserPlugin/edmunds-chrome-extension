@@ -1,7 +1,8 @@
 define([
+    'view/content/price-promise',
     'text!template/content/panel.html',
     'analytics/ga'
-], function(template, analytics) {
+], function(PricePromiseView, template, analytics) {
 
     return Backbone.View.extend({
 
@@ -17,11 +18,19 @@ define([
 
         initialize: function(options) {
             this[options.collapsed ? 'collapse' : 'expand']();
+
+        },
+
+        initializePricePromise: function() {
+            this.pricePromise = new PricePromiseView({
+                el: this.$('.edm-ext-price-promise')
+            });
         },
 
         render: function() {
             this.el.innerHTML = this.template();
             document.body.appendChild(this.el);
+            this.initializePricePromise();
             return this;
         },
 

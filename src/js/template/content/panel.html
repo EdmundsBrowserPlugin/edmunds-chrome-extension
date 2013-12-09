@@ -4,19 +4,42 @@
 
 <!-- inner -->
 <div class="edm-ext-panel-inner">
+	<!-- price promise -->
+	<div class="edm-ext-price-promise">
+		<div class="edm-ext-price-promise-btn">
+			<span class="edm-ext-price-promise-title">
+				Price <span class="edm-ext-primary-color">Promise<sup>sm</sup></span>
+			</span>
+			<span>Special Offers</span>
+			<span class="edm-ext-price-promise-count">0</span> vehicles found
+			<span class="edm-ext-dropdown-caret"><span class="glyphicon glyphicon-chevron-down"></span></span>
+		</div>
+		<div class="edm-ext-panel-dropdown">
+			<div class="edm-ext-vehicles">
+				<div class="edm-ext-vehicles-item">Vehicle List Item</div>
+				<div class="edm-ext-vehicles-item">Vehicle List Item</div>
+				<div class="edm-ext-vehicles-item">Vehicle List Item</div>
+				<div class="edm-ext-vehicles-item">Vehicle List Item</div>
+				<div class="edm-ext-vehicles-item">Vehicle List Item</div>
+			</div>
+			<div class="edm-ext-special-offers">
+				<div class="edm-ext-special-offers-item">Special Offer Item</div>
+				<div class="edm-ext-special-offers-item">Special Offer Item</div>
+			</div>
+		</div>
+	</div>
+	<!--/price promise -->
 
 </div>
 <!--/inner -->
 
 <!-- toolbar -->
 <div class="edm-ext-toolbar">
-	<div class="edm-ext-toolbar-inner">
-		<div class="edm-ext-button" data-action="exclude">
-			<%= chrome.i18n.getMessage('panel_exclude_button_title') %>
-		</div>
-		<div class="edm-ext-button" data-action="close">
-			<div class="glyphicon glyphicon-remove"></div>
-		</div>
+	<div class="edm-ext-button" data-action="exclude">
+		<%= chrome.i18n.getMessage('panel_exclude_button_title') %>
+	</div>
+	<div class="edm-ext-button" data-action="close">
+		<div class="glyphicon glyphicon-remove"></div>
 	</div>
 </div>
 <!--/toolbar -->
