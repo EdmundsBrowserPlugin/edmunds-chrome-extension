@@ -1,0 +1,46 @@
+.edm-ext-panel {
+  background-image: linear-gradient(to bottom, @ext-panel-gradient-start-color 0%, @ext-panel-gradient-end-color 100%);
+  box-shadow: 0 0 5px @ext-panel-box-shadow-color;
+  display: flex;
+  left: 0;
+  min-width: 600px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000000;
+}
+
+.edm-ext-panel-collapsed {
+  top: 50px;
+  min-width: 0;
+  width: auto;
+
+  .edm-ext-panel-inner,
+  .edm-ext-toolbar {
+    display: none;
+  }
+}
+
+.edm-ext-panel > * {
+  border-left: 1px solid @ext-panel-gradient-start-color;
+  border-right: 1px solid @ext-panel-gradient-end-color;
+  flex-flow: column;
+  &:first-child {
+    border-left: 0;
+  }
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+.edm-ext-panel-inner {
+  flex: 1;
+}
+
+.edm-ext-logo {
+  background: transparent url('@{ext-path}/img/edmunds-logo.png') no-repeat center center;
+  cursor: pointer;
+  height: 20px;
+  padding: 5px 10px;
+  width: 70px;
+}
