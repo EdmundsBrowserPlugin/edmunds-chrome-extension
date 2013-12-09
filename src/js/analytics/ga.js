@@ -5,6 +5,14 @@ define(['google-analytics'], function(ga) {
 
     return {
 
+        /**
+         * @method track
+         * @param {String} category
+         * @param {String} action
+         * @param {String} [label]
+         * @param {Number} [value]
+         * @chainable
+         */
         track: function(category, action, label, value) {
             ga.push(['_trackEvent', category, action, label, value]);
             console.log([
