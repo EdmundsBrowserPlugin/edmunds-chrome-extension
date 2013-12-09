@@ -634,13 +634,26 @@
   -webkit-box-sizing: content-box !important;
   box-sizing: content-box !important;
 }
-.edm-ext-toolbar .edm-ext-toolbar-inner {
+.edm-ext-panel sub,
+.edm-ext-panel sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.edm-ext-panel sup {
+  top: -0.5em;
+}
+.edm-ext-panel sub {
+  bottom: -0.25em;
+}
+.edm-ext-toolbar {
   display: flex;
+  flex-flow: column wrap;
 }
 .edm-ext-toolbar .edm-ext-button {
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #eaeaea;
-  flex-flow: column;
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #e2e2e2;
   line-height: 30px;
   padding: 0 8px;
 }
@@ -664,7 +677,7 @@
   color: #006fdc;
 }
 .edm-ext-panel {
-  background-image: linear-gradient(to bottom, #ffffff 0%, #eaeaea 100%);
+  background-image: linear-gradient(to bottom, #f1f1f1 0%, #e2e2e2 100%);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   display: flex;
   left: 0;
@@ -673,6 +686,8 @@
   top: 0;
   width: 100%;
   z-index: 1000000;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .edm-ext-panel .edm-ext-logo {
   background: transparent url('chrome-extension://__MSG_@@extension_id__/img/edmunds-logo.png') no-repeat center center;
@@ -696,9 +711,9 @@
   display: none;
 }
 .edm-ext-panel > * {
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #eaeaea;
-  flex-flow: column;
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #e2e2e2;
+  flex-flow: row nowrap;
 }
 .edm-ext-panel > *:first-child {
   border-left: 0;
@@ -708,4 +723,111 @@
 }
 .edm-ext-panel-inner {
   flex: 1;
+}
+.edm-ext-panel-dropdown {
+  background: #f1f1f1;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+}
+.edm-ext-price-promise {
+  border-right: 1px solid #e2e2e2;
+  float: left;
+  line-height: 30px;
+  position: relative;
+}
+.edm-ext-price-promise.edm-ext-active,
+.edm-ext-price-promise:hover {
+  background: #f5f5f5;
+  background-image: linear-gradient(to bottom, #e2e2e2 0%, #f5f5f5 100%);
+}
+.edm-ext-price-promise.edm-ext-active .edm-ext-panel-dropdown {
+  display: flex;
+}
+.edm-ext-price-promise.edm-ext-disabled,
+.edm-ext-price-promise.edm-ext-disabled:hover {
+  background: transparent;
+}
+.edm-ext-price-promise.edm-ext-disabled .edm-ext-price-promise-btn,
+.edm-ext-price-promise.edm-ext-disabled:hover .edm-ext-price-promise-btn {
+  cursor: default;
+}
+.edm-ext-price-promise.edm-ext-disabled .edm-ext-dropdown-caret,
+.edm-ext-price-promise.edm-ext-disabled:hover .edm-ext-dropdown-caret {
+  opacity: .1;
+}
+.edm-ext-price-promise .edm-ext-price-promise-btn {
+  cursor: pointer;
+  padding: 0 10px;
+}
+.edm-ext-price-promise .edm-ext-price-promise-title {
+  color: #bf2e37;
+  font-size: 14px;
+  font-weight: bold;
+}
+.edm-ext-price-promise .edm-ext-price-promise-title span {
+  color: #00488f;
+}
+.edm-ext-price-promise .edm-ext-price-promise-title sup {
+  font-size: 65%;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.edm-ext-price-promise .edm-ext-price-promise-count {
+  display: inline-block;
+  margin-left: 20px;
+  min-width: 30px;
+  text-align: right;
+}
+.edm-ext-price-promise .edm-ext-dropdown-caret {
+  border: 2px solid #00488f;
+  border-radius: 50%;
+  color: #00488f;
+  display: inline-block;
+  height: 11px;
+  line-height: 1;
+  margin-left: 5px;
+  padding: 2px;
+  width: 11px;
+}
+.edm-ext-price-promise .edm-ext-dropdown-caret .glyphicon {
+  font-size: 10px;
+}
+.edm-ext-price-promise .edm-ext-panel-dropdown {
+  border-top: 1px solid #e2e2e2;
+  display: none;
+  height: 300px;
+  left: -1px;
+  width: 650px;
+}
+.edm-ext-price-promise .edm-ext-panel-dropdown > * {
+  flex-flow: column;
+}
+.edm-ext-price-promise .edm-ext-vehicles {
+  background: #f5f5f5;
+  border-right: 1px solid #e2e2e2;
+  overflow-y: auto;
+  width: 200px;
+}
+.edm-ext-price-promise .edm-ext-vehicles .edm-ext-vehicles-item {
+  border-bottom: 1px solid #e2e2e2;
+  border-top: 1px solid #fff;
+  cursor: pointer;
+  line-height: 25px;
+  padding: 0 10px;
+}
+.edm-ext-price-promise .edm-ext-vehicles .edm-ext-vehicles-item:hover {
+  background: #f0f0f0;
+  border-top-color: #f0f0f0;
+}
+.edm-ext-price-promise .edm-ext-special-offers {
+  background: #fff;
+  flex: 1;
+}
+.edm-ext-price-promise .edm-ext-special-offers .edm-ext-special-offers-item {
+  border-top: 1px dashed #e2e2e2;
+  padding: 10px;
+}
+.edm-ext-price-promise .edm-ext-special-offers .edm-ext-special-offers-item:first-child {
+  border-top: 0;
 }
