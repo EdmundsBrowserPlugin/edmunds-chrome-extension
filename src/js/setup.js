@@ -13,8 +13,19 @@
             type: 'basic',
             title: chrome.i18n.getMessage('notification_welcome_title'),
             message: chrome.i18n.getMessage('notification_welcome_message'),
-            iconUrl: 'img/icon/128.png'
-        }, function() {});
+            iconUrl: 'img/icon/128.png',
+            buttons: [{
+                title: chrome.i18n.getMessage('notification_welcome_settings_button_title')
+            }]
+        }, function(welcomeNotificationId) {
+            chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
+                if (welcomeNotificationId === notificationId && buttonIndex === 0) {
+                    chrome.tabs.create({
+                        url: chrome.runtime.getURL('/options.html')
+                    });
+                }
+            });
+        });
     }
 
     function findZipCodeByCoordinates(coords, callback) {
