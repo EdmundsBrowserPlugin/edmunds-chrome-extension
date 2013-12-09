@@ -646,7 +646,8 @@
 }
 .edm-ext-toolbar .edm-ext-button .glyphicon {
   font-size: 12px;
-  top: 2px;
+  line-height: inherit;
+  top: 0;
 }
 .edm-ext-toolbar .edm-ext-button:first-child {
   border-left: 0;
