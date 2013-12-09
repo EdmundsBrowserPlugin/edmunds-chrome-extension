@@ -1,0 +1,115 @@
+.edm-ext-price-promise {
+  border-right: 1px solid @ext-panel-gradient-end-color;
+  float: left;
+  line-height: 30px;
+  position: relative;
+
+  &.edm-ext-active, &:hover {
+    background: #f5f5f5;
+    background-image: linear-gradient(to bottom, @ext-panel-gradient-end-color 0%, #f5f5f5 100%);
+  }
+
+  &.edm-ext-active .edm-ext-panel-dropdown {
+    display: flex;
+  }
+
+  &.edm-ext-disabled, &.edm-ext-disabled:hover {
+    background: transparent;
+
+    .edm-ext-price-promise-btn {
+      cursor: default;
+    }
+
+    .edm-ext-dropdown-caret {
+      opacity: .1;
+    }
+  }
+
+  .edm-ext-price-promise-btn {
+    cursor: pointer;
+    padding: 0 10px;
+  }
+
+  .edm-ext-price-promise-title {
+    color: @brand-secondary;
+    font-size: 14px;
+    font-weight: bold;
+
+    span {
+      color: @brand-primary;
+    }
+    sup {
+      font-size: 65%;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+  }
+
+  .edm-ext-price-promise-count {
+    display: inline-block;
+    margin-left: 20px;
+    min-width: 30px;
+    text-align: right;
+  }
+
+  .edm-ext-dropdown-caret {
+    border: 2px solid @brand-primary;
+    border-radius: 50%;
+    color: @brand-primary;
+    display: inline-block;
+    height: 11px;
+    line-height: 1;
+    margin-left: 5px;
+    padding: 2px;
+    width: 11px;
+
+    .glyphicon {
+      font-size: 10px;
+    }
+  }
+
+  .edm-ext-panel-dropdown {
+    border-top: 1px solid #e2e2e2;
+    display: none;
+    height: 300px;
+    left: -1px;
+    width: 650px;
+
+    > * {
+      flex-flow: column;
+    }
+  }
+
+  .edm-ext-vehicles {
+    background: #f5f5f5;
+    border-right: 1px solid #e2e2e2;
+    overflow-y: auto;
+    width: 200px;
+
+    .edm-ext-vehicles-item {
+      border-bottom: 1px solid #e2e2e2;
+      border-top: 1px solid #fff;
+      cursor: pointer;
+      line-height: 25px;
+      padding: 0 10px;
+
+      &:hover {
+        background: #f0f0f0;
+        border-top-color: #f0f0f0;
+      }
+    }
+  }
+
+  .edm-ext-special-offers {
+    background: #fff;
+    flex: 1;
+
+    .edm-ext-special-offers-item {
+      border-top: 1px dashed #e2e2e2;
+      padding: 10px;
+      &:first-child {
+        border-top: 0;
+      }
+    }
+  }
+}
