@@ -631,8 +631,8 @@
 .edm-ext-panel *,
 .edm-ext-panel *:before,
 .edm-ext-panel *:after {
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box !important;
+  box-sizing: content-box !important;
 }
 .edm-ext-toolbar .edm-ext-toolbar-inner {
   display: flex;
@@ -673,10 +673,22 @@
   width: 100%;
   z-index: 1000000;
 }
+.edm-ext-panel .edm-ext-logo {
+  background: transparent url('chrome-extension://__MSG_@@extension_id__/img/edmunds-logo.png') no-repeat center center;
+  cursor: pointer;
+  height: 20px;
+  padding: 5px 10px;
+  width: 70px;
+}
 .edm-ext-panel-collapsed {
   top: 50px;
   min-width: 0;
   width: auto;
+}
+.edm-ext-panel-collapsed .edm-ext-logo {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/img/edmunds-logo-small.png');
+  height: 28px;
+  width: 32px;
 }
 .edm-ext-panel-collapsed .edm-ext-panel-inner,
 .edm-ext-panel-collapsed .edm-ext-toolbar {
@@ -695,11 +707,4 @@
 }
 .edm-ext-panel-inner {
   flex: 1;
-}
-.edm-ext-logo {
-  background: transparent url('chrome-extension://__MSG_@@extension_id__/img/edmunds-logo.png') no-repeat center center;
-  cursor: pointer;
-  height: 20px;
-  padding: 5px 10px;
-  width: 70px;
 }
