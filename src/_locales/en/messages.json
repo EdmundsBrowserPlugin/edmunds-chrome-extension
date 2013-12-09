@@ -16,5 +16,8 @@
   },
   "notification_welcome_settings_button_title": {
     "message": "Visit the options page"
+  },
+  "panel_exclude_button_title": {
+    "message": "Always hide on this website"
   }
 }
