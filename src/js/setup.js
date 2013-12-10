@@ -65,9 +65,27 @@
         findZipCodeByCoordinates(geoposition.coords, onZipFound);
     }
 
+    function getDefaultMakeModelsMap(callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', chrome.runtime.getURL('/data/make-models.json'));
+        xhr.onreadystatechange = function() {
+            var json;
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                try {
+                    json = JSON.parse(xhr.responseText);
+                } catch(e) {}
+                callback(json);
+            }
+        };
+        xhr.send(null);
+    }
+
     function initializeLocalStorage() {
-        chrome.storage.local.set(defaults, function() {
-            showWelcomeNotification();
+        getDefaultMakeModelsMap(function(makeModelsMap) {
+            defaults.makeModelsMap = makeModelsMap;
+            chrome.storage.local.set(defaults, function() {
+                showWelcomeNotification();
+            });
         });
     }
 
