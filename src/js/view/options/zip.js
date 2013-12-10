@@ -56,7 +56,7 @@ define([
             });
             return deferred.promise();
         },
-        
+
         displayZip: function(zip) {
             this.$('#zip-input').val(zip);
             this.$('#zip-text').text(zip);
@@ -69,12 +69,12 @@ define([
         onChange: function() {
             this.showUpdateSection();
             this.currentZipCode = this.$('#zip-input').val();
-            analytics.track('ZIP Settings', 'Click', 'Update button');
+            analytics.track('ZIP Settings', 'Click', 'Change button');
         },
 
         onUpdate: function() {
             var zip = this.$('#zip-input').val();
-            analytics.track('ZIP Settings', 'Click', 'Change button');
+            analytics.track('ZIP Settings', 'Click', 'Update button');
             if (zip === this.currentZipCode) {
                 this.hideUpdateSection();
                 return;
