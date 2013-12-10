@@ -796,7 +796,7 @@
 .edm-ext-price-promise .edm-ext-panel-dropdown {
   border-top: 1px solid #e2e2e2;
   display: none;
-  height: 300px;
+  height: 263px;
   left: -1px;
   width: 650px;
 }
@@ -830,4 +830,52 @@
 }
 .edm-ext-price-promise .edm-ext-special-offers .edm-ext-special-offers-item:first-child {
   border-top: 0;
+}
+.edm-ext-special-offers-item {
+  line-height: 1.5;
+  padding: 10px 15px;
+}
+.edm-ext-special-offers-item:before,
+.edm-ext-special-offers-item:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.edm-ext-special-offers-item:after {
+  clear: both;
+}
+.edm-ext-special-offers-item .edm-ext-image {
+  float: left;
+  height: 67px;
+  margin-right: 15px;
+  width: 100px;
+}
+.edm-ext-special-offers-item .edm-ext-image img {
+  max-width: 100px;
+  max-height: 67px;
+}
+.edm-ext-special-offers-item .edm-ext-info {
+  font-size: 11px;
+  overflow: hidden;
+}
+.edm-ext-special-offers-item .edm-ext-info .edm-ext-vehicle {
+  color: #0072bc;
+  font-size: 13px;
+}
+.edm-ext-special-offers-item .edm-ext-price {
+  margin-left: 15px;
+  float: right;
+  width: 110px;
+}
+.edm-ext-special-offers-item .edm-ext-price .edm-ext-msrp {
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  text-decoration: line-through;
+}
+.edm-ext-special-offers-item .edm-ext-price .edm-ext-spec {
+  font-size: 14px;
+  color: #58a200;
+  text-align: center;
 }
