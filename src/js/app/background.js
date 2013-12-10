@@ -48,17 +48,6 @@ define([
                     chrome.tabs.sendMessage(tab.id, { action: 'stop' });
                 }, this);
             }.bind(this));
-            this.createNotification(url + ' was added to black list.');
-        },
-
-        createNotification: function(message) {
-            console.log('BackgroundApp#createNotification');
-            chrome.notifications.create('', {
-                type: 'basic',
-                title: 'Edmunds Buddy',
-                message: message,
-                iconUrl: 'img/icon/128.png'
-            }, function() {});
         }
 
     });
