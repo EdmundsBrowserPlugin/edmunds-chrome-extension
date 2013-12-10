@@ -48,6 +48,8 @@ module.exports = function(grunt) {
                 posIndex = 1;
                 break;
             case 'build':
+                posIndex = 2;
+                break;
             default:
                 posIndex = 2;
         }
