@@ -1,6 +1,6 @@
 {
   "name": "edmunds-chrome-extension",
-  "version": "0.1.7",
+  "version": "0.1.10",
   "description": "Edmunds Chrome Extension",
   "ignore": [
     "**/.*",
