@@ -7,5 +7,17 @@
   },
   "default_title": {
     "message": "Edmunds Buddy"
+  },
+  "notification_welcome_title": {
+    "message": "Edmunds Buddy welcomes you!"
+  },
+  "notification_welcome_message": {
+    "message": "Please visit the options page to configure the zip and websites where you would rather hide the extension's panel."
+  },
+  "notification_welcome_settings_button_title": {
+    "message": "Visit the options page"
+  },
+  "panel_exclude_button_title": {
+    "message": "Always hide on this website"
   }
 }

@@ -1,0 +1,62 @@
+.edm-ext-panel {
+  background-image: linear-gradient(to bottom, @ext-panel-gradient-start-color 0%, @ext-panel-gradient-end-color 100%);
+  box-shadow: 0 0 5px @ext-panel-box-shadow-color;
+  display: flex;
+  left: 0;
+  min-width: 600px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2000000;
+  -webkit-user-select: none;
+  user-select: none;
+
+  .edm-ext-logo {
+    background: transparent url('@{ext-path}/img/edmunds-logo.png') no-repeat center center;
+    cursor: pointer;
+    height: 20px;
+    padding: 5px 10px;
+    width: 70px;
+  }
+}
+
+.edm-ext-panel-collapsed {
+  top: 50px;
+  min-width: 0;
+  width: auto;
+
+  .edm-ext-logo {
+    background-image: url('@{ext-path}/img/edmunds-logo-small.png');
+    height: 28px;
+    width: 32px;
+  }
+
+  .edm-ext-panel-inner,
+  .edm-ext-toolbar {
+    display: none;
+  }
+}
+
+.edm-ext-panel > * {
+  border-left: 1px solid @ext-panel-gradient-start-color;
+  border-right: 1px solid @ext-panel-gradient-end-color;
+  flex-flow: row nowrap;
+
+  &:first-child {
+    border-left: 0;
+  }
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+.edm-ext-panel-inner {
+  flex: 1;
+}
+
+.edm-ext-panel-dropdown {
+  background: @ext-panel-gradient-start-color;
+  box-shadow: 0 3px 3px @ext-panel-box-shadow-color;
+  position: absolute;
+  left: 0;
+}

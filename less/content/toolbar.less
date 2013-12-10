@@ -1,0 +1,33 @@
+.edm-ext-toolbar {
+  display: flex;
+  flex-flow: column wrap;
+
+  .edm-ext-button {
+    border-left: 1px solid @ext-panel-gradient-start-color;
+    border-right: 1px solid @ext-panel-gradient-end-color;
+    line-height: 30px;
+    padding: 0 8px;
+
+    .glyphicon {
+      font-size: 12px;
+      line-height: inherit;
+      top: 0;
+    }
+    &:first-child {
+      border-left: 0;
+    }
+    &:last-child {
+      border-right: 0;
+    }
+  }
+}
+
+.edm-ext-button {
+  cursor: pointer;
+  color: @brand-primary;
+  transition: color .25s ease;
+
+  &:hover {
+    color: lighten(@brand-primary, 15%);
+  }
+}

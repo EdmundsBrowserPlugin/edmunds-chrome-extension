@@ -31,4 +31,36 @@ module.exports = function(grunt) {
         });
     });
 
+    /**
+     * Increases version in the JSON files
+     * @example
+     *   grunt increase-version:build
+     *   grunt increase-version:minor
+     *   grunt increase-version:major
+     */
+    grunt.registerTask('increase-version', 'Increases version', function(pos, inc) {
+        var posIndex;
+        switch (pos) {
+            case 'major':
+                posIndex = 0;
+                break;
+            case 'minor':
+                posIndex = 1;
+                break;
+            case 'build':
+                posIndex = 2;
+                break;
+            default:
+                posIndex = 2;
+        }
+        inc = +inc || 1;
+        paths.forEach(function(path) {
+            var obj = readJSON(path),
+                parts = obj.version.split('.');
+            parts[posIndex] = +parts[posIndex] + inc;
+            obj.version = parts.join('.');
+            writeJSON(path, obj);
+        });
+    });
+
 };

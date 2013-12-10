@@ -196,12 +196,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #428bca;
+  color: #00488f;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #002143;
   text-decoration: underline;
 }
 a:focus {
@@ -276,10 +276,10 @@ cite {
   color: #999999;
 }
 .text-primary {
-  color: #428bca;
+  color: #00488f;
 }
 .text-primary:hover {
-  color: #3071a9;
+  color: #002e5c;
 }
 .text-warning {
   color: #c09853;
@@ -1665,8 +1665,8 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary {
   color: #ffffff;
-  background-color: #428bca;
-  border-color: #357ebd;
+  background-color: #00488f;
+  border-color: #003b76;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -1674,8 +1674,8 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #3276b1;
-  border-color: #285e8e;
+  background-color: #003366;
+  border-color: #001c38;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -1697,8 +1697,8 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #428bca;
-  border-color: #357ebd;
+  background-color: #00488f;
+  border-color: #003b76;
 }
 .btn-warning {
   color: #ffffff;
@@ -1849,7 +1849,7 @@ fieldset[disabled] .btn-info.active {
   border-color: #46b8da;
 }
 .btn-link {
-  color: #428bca;
+  color: #00488f;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0;
@@ -1870,7 +1870,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #2a6496;
+  color: #002143;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -1913,8 +1913,8 @@ input[type="button"].btn-block {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/glyphicons-halflings-regular.eot');
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('chrome-extension://__MSG_@@extension_id__/fonts/glyphicons-halflings-regular.woff') format('woff'), url('chrome-extension://__MSG_@@extension_id__/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('chrome-extension://__MSG_@@extension_id__/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -2783,8 +2783,8 @@ a.list-group-item.active:hover,
 a.list-group-item.active:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #00488f;
+  border-color: #00488f;
 }
 a.list-group-item.active .list-group-item-heading,
 a.list-group-item.active:hover .list-group-item-heading,
@@ -2794,7 +2794,7 @@ a.list-group-item.active:focus .list-group-item-heading {
 a.list-group-item.active .list-group-item-text,
 a.list-group-item.active:hover .list-group-item-text,
 a.list-group-item.active:focus .list-group-item-text {
-  color: #e1edf7;
+  color: #5caeff;
 }
 .list-group-item-heading {
   margin-top: 0;
@@ -2856,6 +2856,14 @@ header {
 .checkbox.disabled {
   color: #999;
 }
+.input-group-sm > .input-group-select {
+  padding: 0 1px;
+}
+.input-group-sm > .input-group-select select {
+  height: 26px;
+  min-width: 80px;
+  padding: 3px 6px;
+}
 .black-list {
   margin: 10px 0;
 }
@@ -2868,7 +2876,7 @@ header {
   transition: color 0.15s ease;
 }
 .black-list .list-group-item:hover {
-  color: #428bca;
+  color: #00488f;
 }
 .black-list .list-group-item .glyphicon {
   cursor: pointer;
@@ -2885,11 +2893,11 @@ header {
 .black-list .list-group-item .glyphicon-remove {
   color: #a62d3c;
 }
-.black-list .list-group-item .hostname {
+.black-list .list-group-item .url {
   overflow: hidden;
 }
 .section-title {
-  border-bottom: 2px solid #428bca;
+  border-bottom: 2px solid #00488f;
   font-size: 14px;
   font-weight: bold;
   padding: 0 15px 5px;
