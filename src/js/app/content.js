@@ -24,7 +24,7 @@ define([
             ].join('/'),
             data: {
                 zip: zip,
-                years: years,
+                years: years.join(','),
                 groupItemsSize: 1,
                 pageSize: 3
             },
