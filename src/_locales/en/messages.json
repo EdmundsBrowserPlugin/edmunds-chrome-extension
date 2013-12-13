@@ -17,7 +17,19 @@
   "notification_welcome_settings_button_title": {
     "message": "Visit the options page"
   },
+  "panel_logo_title": {
+    "message": ""
+  },
   "panel_exclude_button_title": {
     "message": "Always hide on this website"
+  },
+  "panel_exclude_button_text": {
+    "message": "Hide"
+  },
+  "panel_minimize_button_title": {
+    "message": "Minimize panel"
+  },
+  "panel_minimize_button_text": {
+    "message": "Minimize"
   }
 }
