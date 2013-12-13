@@ -12,11 +12,21 @@ define([
     vehicleItemTemplate = _.template(vehicleItemTemplate);
     specialOfferTemplate = _.template(specialOfferTemplate);
 
+    function _toQueryString(obj) {
+        var queryParameters = [];
+        _.each(obj, function(value, key) {
+            queryParameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+        });
+        return queryParameters.join('&');
+    }
+
     return Backbone.View.extend({
 
         events: {
             'click .edm-ext-price-promise-btn': 'onClick',
-            'click .edm-ext-vehicles-item': 'onVehicleClick'
+            'click .edm-ext-vehicles-item': 'onVehicleClick',
+            'click .edm-ext-special-offers-item .edm-ext-vehicle a': 'onOfferVehicleClick',
+            'click .edm-ext-special-offers-item .edm-ext-price a': 'onOfferButtonClick'
         },
 
         initialize: function(options) {
@@ -75,7 +85,6 @@ define([
             this.$('.edm-ext-price-promise-count').text(count);
             this[count !== 0 ? 'enable' : 'disable']();
             this.renderVehicles(map);
-            this.specialOffersMap = map;
         },
 
         renderVehicles: function(map) {
@@ -109,10 +118,53 @@ define([
         renderSpecialOffers: function(offers) {
             var list = this.$('.edm-ext-special-offers');
             list.empty();
-            console.log(offers);
             _.each(offers, function(offer) {
+                offer.offerUrl = this.getOfferUrl(offer);
+                offer.vehicleUrl = this.getVehicleUrl(offer);
+                if (!offer.photoUrl || offer.photoUrl.indexOf('/') === 0) {
+                    offer.photoUrl = chrome.runtime.getURL('/img/default-vehicle-photo.png');
+                }
                 list.append(specialOfferTemplate(offer));
+            }, this);
+            list.scrollTop(0);
+        },
+
+        getVehicleUrl: function(offer) {
+            return 'http://www.edmunds.com/inventory/vin.html?' + _toQueryString({
+                make: offer.make,
+                model: offer.model,
+                sub: offer.submodel,
+                year: offer.year,
+                trim: offer.trim,
+                locationId: offer.locationId,
+                franchiseId: offer.franchiseId,
+                inventoryId: offer.id,
+                zip: this.zip,
+                'price_promise': true
             });
+        },
+
+        getOfferUrl: function(offer) {
+            return 'http://www.edmunds.com/inventory/lead_form_certificate.html?' + _toQueryString({
+                action: 'display',
+                make: offer.make,
+                model: offer.model,
+                sub: offer.submodel,
+                year: offer.year,
+                trim: offer.trim,
+                locationId: offer.locationId,
+                franchiseId: offer.franchiseId,
+                inventoryId: offer.id,
+                zip: this.zip
+            });
+        },
+
+        onOfferVehicleClick: function() {
+            analytics.track('Special Offers', 'Click', 'Vehicle name');
+        },
+
+        onOfferButtonClick: function() {
+            analytics.track('Special Offers', 'Click', 'View Price Now button');
         }
 
     });
