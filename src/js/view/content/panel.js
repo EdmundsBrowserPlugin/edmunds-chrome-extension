@@ -11,7 +11,8 @@ define([
         template: _.template(template),
 
         events: {
-            'click [data-action="toggle-view"]': 'onToggleViewClick',
+            'click [data-action="toggle-view"],[data-action="minimize"]': 'onToggleViewClick',
+            'click [data-action="minimize"]': 'onMinimizeClick',
             'click [data-action="close"]': 'onCloseClick',
             'click [data-action="exclude"]': 'onExcludeClick'
         },
@@ -47,11 +48,13 @@ define([
         onToggleViewClick: function() {
             if (this.$el.hasClass('edm-ext-panel-collapsed')) {
                 this.expand();
-                analytics.track('Extension Panel', 'Toggle View', 'Expand');
+                this.trigger('expand');
+
             } else {
                 this.collapse();
-                analytics.track('Extension Panel', 'Toggle View', 'Collapse');
+                this.trigger('collapse');
             }
+            analytics.track('Extension Panel', 'Click', 'Logo');
             return this;
         },
 
@@ -63,8 +66,20 @@ define([
 
         onExcludeClick: function() {
             this.trigger('exclude', location.origin);
+            analytics.track('Extension Panel', 'Click', 'Exclude button');
             analytics.track('Extension Panel', 'Exclude URL', location.origin);
             return this;
+        },
+
+        onMinimizeClick: function() {
+            this.collapse();
+            this.trigger('collapse');
+            analytics.track('Extension Panel', 'Click', 'Minimize button');
+            return this;
+        },
+
+        setOffersCount: function(count) {
+            this.$('.edm-ext-offers-count-label').text(count);
         }
 
     });
