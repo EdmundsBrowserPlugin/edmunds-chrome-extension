@@ -1,5 +1,7 @@
 <!-- logo -->
-<div class="edm-ext-logo" data-action="toggle-view"></div>
+<div class="edm-ext-logo" data-action="toggle-view" title="<%= chrome.i18n.getMessage('panel_logo_title') %>">
+	<span class="edm-ext-offers-count-label">0</span>
+</div>
 <!--/logo -->
 
 <!-- inner -->
@@ -26,11 +28,11 @@
 
 <!-- toolbar -->
 <div class="edm-ext-toolbar">
-	<div class="edm-ext-button" data-action="exclude">
-		<%= chrome.i18n.getMessage('panel_exclude_button_title') %>
+	<div class="edm-ext-button" data-action="exclude" title="<%= chrome.i18n.getMessage('panel_exclude_button_title') %>">
+		<div class="glyphicon glyphicon-eye-close"></div> <%= chrome.i18n.getMessage('panel_exclude_button_text') %>
 	</div>
-	<div class="edm-ext-button" data-action="close">
-		<div class="glyphicon glyphicon-remove"></div>
+	<div class="edm-ext-button" data-action="minimize" title="<%= chrome.i18n.getMessage('panel_minimize_button_title') %>">
+		<div class="glyphicon glyphicon-resize-small"></div> <%= chrome.i18n.getMessage('panel_minimize_button_text') %>
 	</div>
 </div>
 <!--/toolbar -->

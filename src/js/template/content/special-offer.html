@@ -3,11 +3,15 @@
 		<img src="<%= photoUrl %>">
 	</div>
 	<div class="edm-ext-price">
+		<div class="edm-ext-dealer-distance"><%= Math.ceil(dealerDistance) %> miles away</div>
 		<div class="edm-ext-msrp">MSRP: $<%= _.formatNumber(price) %></div>
 		<div class="edm-ext-spec">Special Offer</div>
+		<a class="edm-ext-btn" href="<%= offerUrl %>" target="_blank">View Price Now</a>
 	</div>
 	<div class="edm-ext-info">
-		<div class="edm-ext-vehicle"><%= year %> <%= make %> <%= submodel %></div>
+		<div class="edm-ext-vehicle"><a href="<%= vehicleUrl %>" target="_blank"><%= year %> <%= make %> <%= submodel %></a></div>
 		<div class="edm-ext-vin">VIN: <%= vin %></div>
+		<div class="edm-ext-dealer"><%= dealerName %></div>
+		<div class="edm-ext-dealer"><%= dealerPhone %></div>
 	</div>
 </div>

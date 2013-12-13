@@ -2,7 +2,11 @@ require([
     'app/content'
 ], function(App) {
 
-    /* jshint unused:false */
-    var app = new App();
+    chrome.storage.local.get('collapsedPanel', function(response) {
+        /* jshint unused:false */
+        var app = new App({
+            collapsedPanel: response.collapsedPanel
+        });
+    });
 
 });

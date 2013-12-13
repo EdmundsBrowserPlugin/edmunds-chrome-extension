@@ -2,10 +2,8 @@
 
     var defaults = {
         zip: 90401,
-        blackList: [
-            'http://developer.chrome.com',
-            'https://github.com'
-        ]
+        collapsedPanel: false,
+        blackList: []
     };
 
     function showSettingsPage() {

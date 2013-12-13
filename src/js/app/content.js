@@ -15,18 +15,17 @@ define([
 
     function _fetchSpecialOffers(make, model, years, zip) {
         var deferred = new jQuery.Deferred();
-        $.ajax({
+        jQuery.ajax({
             url: [
                 'http://www.edmunds.com/api/inventory/v1',
                 make,
                 model,
-                'dealers/newused/list/'
+                'dealers/pp/list/'
             ].join('/'),
             data: {
                 zip: zip,
                 years: years.join(','),
-                groupItemsSize: 1,
-                pageSize: 3
+                sortBy: 'distance'
             },
             dataType: 'json',
             success: function(response) {
@@ -66,11 +65,12 @@ define([
 
         initializePanel: function() {
             var view = this.panel = new PanelView({
-                // TODO
-                //collapsed: true
+                collapsed: this.options.collapsedPanel
             });
             view.on('close', this.stop, this);
             view.on('exclude', this.excludeUrl, this);
+            view.on('collapse', this.dispatchCollapse, this);
+            view.on('expand', this.dispatchExpand, this);
         },
 
         handleRuntimeMessage: function(message) {
@@ -82,10 +82,10 @@ define([
                 case 'start':
                     this.start();
                     break;
-                case 'collapse':
+                case 'collapsePanel':
                     this.panel.collapse();
                     break;
-                case 'expand':
+                case 'expandPanel':
                     this.panel.expand();
                     break;
             }
@@ -109,6 +109,7 @@ define([
             chrome.storage.local.get(['makeModelsMap', 'zip'], function(response) {
                 var vehicles = Parser.parse(documentContent, response.makeModelsMap);
                 this.fetchSpecialOffers(vehicles, response.zip);
+                this.panel.pricePromise.zip = response.zip;
             }.bind(this));
             this.previousDocumentContent = documentContent;
         },
@@ -136,6 +137,7 @@ define([
                     offersCount += data.offers.length;
                 });
                 this.panel.pricePromise.setSpecialOffers(offers, offersCount);
+                this.panel.setOffersCount(offersCount);
             }.bind(this));
         },
 
@@ -147,6 +149,7 @@ define([
 
         start: function() {
             console.log('ContentApp#start');
+            this.initializePanel();
             this.panel.render();
             document.addEventListener('DOMSubtreeModified', this.onDocumentChange);
             this.parseDocument();
@@ -156,6 +159,18 @@ define([
             console.log('ContentApp#exclude');
             BlackListStorage.add(url, function() {
                 chrome.runtime.sendMessage({ action: 'stopContentApplications', data: url });
+            });
+        },
+
+        dispatchCollapse: function() {
+            chrome.storage.local.set({ collapsedPanel: true }, function() {
+                chrome.runtime.sendMessage({ action: 'dispatchPanelEvent', data: 'collapsePanel' });
+            });
+        },
+
+        dispatchExpand: function() {
+            chrome.storage.local.set({ collapsedPanel: false }, function() {
+                chrome.runtime.sendMessage({ action: 'dispatchPanelEvent', data: 'expandPanel' });
             });
         }
 

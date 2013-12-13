@@ -2,6 +2,7 @@
   background-image: linear-gradient(to bottom, @ext-panel-gradient-start-color 0%, @ext-panel-gradient-end-color 100%);
   box-shadow: 0 0 5px @ext-panel-box-shadow-color;
   display: flex;
+  height: 31px;
   left: 0;
   min-width: 600px;
   position: fixed;
@@ -18,11 +19,16 @@
     padding: 5px 10px;
     width: 70px;
   }
+
+  .edm-ext-offers-count-label {
+    display: none;
+  }
 }
 
 .edm-ext-panel-collapsed {
-  top: 50px;
+  height: 38px;
   min-width: 0;
+  top: 50px;
   width: auto;
 
   .edm-ext-logo {
@@ -34,6 +40,25 @@
   .edm-ext-panel-inner,
   .edm-ext-toolbar {
     display: none;
+  }
+
+  .edm-ext-offers-count-label {
+    background: @brand-primary;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    color: white;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 24px;
+    opacity: .8;
+    position: absolute;
+    right: -9px;
+    text-align: center;
+    top: 4px;
+    width: 24px;
   }
 }
 

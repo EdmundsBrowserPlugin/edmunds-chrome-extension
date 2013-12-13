@@ -16,15 +16,20 @@
   .edm-ext-info {
     font-size: 11px;
     overflow: hidden;
-    .edm-ext-vehicle {
-      color: #0072bc;
+    .edm-ext-vehicle a {
       font-size: 13px;
+      font-weight: bold;
     }
   }
   .edm-ext-price {
     margin-left: 15px;
     float: right;
+    text-align: center;
     width: 110px;
+    .edm-ext-dealer-distance {
+      font-size: 11px;
+      text-align: right;
+    }
     .edm-ext-msrp {
       font-size: 13px;
       color: #999;
@@ -35,6 +40,20 @@
       font-size: 14px;
       color: #58a200;
       text-align: center;
+    }
+    .edm-ext-btn {
+      background: #58A200;
+      border-radius: 20px;
+      color: white;
+      display: inline-block;
+      font-size: 11px;
+      margin: 0 auto;
+      padding: 5px 10px;
+      text-decoration: none;
+      text-transform: uppercase;
+      &:visited {
+        color: white;
+      }
     }
   }
 }

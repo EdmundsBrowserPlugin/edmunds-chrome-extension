@@ -33,6 +33,9 @@ define([
                 case 'stopContentApplications':
                     this.stopContentApplications(message.data);
                     break;
+                case 'dispatchPanelEvent':
+                    this.dispatchPanelEvent(message.data);
+                    break;
             }
         },
 
@@ -41,9 +44,8 @@ define([
             chrome.tabs.query({ url: url + '/*' }, function(tabs) {
                 tabs.forEach(function(tab) {
                     chrome.tabs.sendMessage(tab.id, { action: 'start' });
-                }, this);
-            }.bind(this));
-            this.createNotification(url + ' was removed from black list.');
+                });
+            });
         },
 
         stopContentApplications: function(url) {
@@ -51,8 +53,17 @@ define([
             chrome.tabs.query({ url: url + '/*' }, function(tabs) {
                 tabs.forEach(function(tab) {
                     chrome.tabs.sendMessage(tab.id, { action: 'stop' });
-                }, this);
-            }.bind(this));
+                });
+            });
+        },
+
+        dispatchPanelEvent: function(action) {
+            console.log('BackgroundApp#dispatchPanelEvent');
+            chrome.tabs.query({}, function(tabs) {
+                tabs.forEach(function(tab) {
+                    chrome.tabs.sendMessage(tab.id, { action: action });
+                });
+            });
         },
 
         checkForUpdate: function() {
