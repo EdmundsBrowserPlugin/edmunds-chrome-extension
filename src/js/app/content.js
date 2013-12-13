@@ -91,8 +91,11 @@ define([
             }
         },
 
-        onDocumentChange: function() {
-            console.log('ContentApp#onDocumentChange');
+        onDocumentChange: function(event) {
+            var $panelEl = this.panel.$el;
+            if ($panelEl.is(event.target) || $panelEl.has(event.target).length > 0) {
+                return;
+            }
             this.parseDocument();
         },
 
