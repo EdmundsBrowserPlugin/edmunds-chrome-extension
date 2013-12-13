@@ -84,7 +84,11 @@ define([
             console.log('#setSpecialOffers');
             this.$('.edm-ext-price-promise-count').text(count);
             this[count !== 0 ? 'enable' : 'disable']();
-            this.renderVehicles(map);
+            if (!_.isEqual(map, this.previousOffersMap)) {
+                this.renderVehicles(map);
+                this.renderSpecialOffers(this.$('.edm-ext-vehicles > :first-child').data('offers'));
+                this.previousOffersMap = map;
+            }
         },
 
         renderVehicles: function(map) {
@@ -105,7 +109,6 @@ define([
                     list.append(listItem);
                 });
             });
-            list.find('> :first-child').trigger('click');
         },
 
         onVehicleClick: function(event) {
@@ -118,7 +121,8 @@ define([
         renderSpecialOffers: function(offers) {
             var list = this.$('.edm-ext-special-offers');
             list.empty();
-            _.each(offers, function(offer) {
+            _.each(offers, function(originalOffer) {
+                var offer = _.clone(originalOffer);
                 offer.offerUrl = this.getOfferUrl(offer);
                 offer.vehicleUrl = this.getVehicleUrl(offer);
                 if (!offer.photoUrl || offer.photoUrl.indexOf('/') === 0) {
