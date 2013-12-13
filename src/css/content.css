@@ -647,6 +647,19 @@
 .edm-ext-panel sub {
   bottom: -0.25em;
 }
+.edm-ext-panel a {
+  color: #004d99;
+}
+.edm-ext-panel a,
+.edm-ext-panel a:visited,
+.edm-ext-panel a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.edm-ext-panel a:visited:hover,
+.edm-ext-panel a:hover {
+  color: #90be3f;
+}
 .edm-ext-toolbar {
   display: flex;
   flex-flow: column wrap;
@@ -654,13 +667,13 @@
 .edm-ext-toolbar .edm-ext-button {
   border-left: 1px solid #f1f1f1;
   border-right: 1px solid #e2e2e2;
-  line-height: 30px;
+  line-height: 28px;
   padding: 0 8px;
 }
 .edm-ext-toolbar .edm-ext-button .glyphicon {
   font-size: 12px;
   line-height: inherit;
-  top: 0;
+  top: 1px;
 }
 .edm-ext-toolbar .edm-ext-button:first-child {
   border-left: 0;
@@ -680,6 +693,7 @@
   background-image: linear-gradient(to bottom, #f1f1f1 0%, #e2e2e2 100%);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   display: flex;
+  height: 31px;
   left: 0;
   min-width: 600px;
   position: fixed;
@@ -696,9 +710,13 @@
   padding: 5px 10px;
   width: 70px;
 }
+.edm-ext-panel .edm-ext-offers-count-label {
+  display: none;
+}
 .edm-ext-panel-collapsed {
-  top: 50px;
+  height: 38px;
   min-width: 0;
+  top: 50px;
   width: auto;
 }
 .edm-ext-panel-collapsed .edm-ext-logo {
@@ -709,6 +727,24 @@
 .edm-ext-panel-collapsed .edm-ext-panel-inner,
 .edm-ext-panel-collapsed .edm-ext-toolbar {
   display: none;
+}
+.edm-ext-panel-collapsed .edm-ext-offers-count-label {
+  background: #00488f;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  color: white;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  height: 24px;
+  line-height: 24px;
+  opacity: .8;
+  position: absolute;
+  right: -9px;
+  text-align: center;
+  top: 4px;
+  width: 24px;
 }
 .edm-ext-panel > * {
   border-left: 1px solid #f1f1f1;
@@ -796,9 +832,11 @@
 .edm-ext-price-promise .edm-ext-panel-dropdown {
   border-top: 1px solid #e2e2e2;
   display: none;
-  height: 263px;
+  height: 308px;
   left: -1px;
-  width: 650px;
+  width: 700px;
+  -webkit-user-select: initial;
+  user-select: initial;
 }
 .edm-ext-price-promise .edm-ext-panel-dropdown > * {
   flex-flow: column;
@@ -823,6 +861,7 @@
 .edm-ext-price-promise .edm-ext-special-offers {
   background: #fff;
   flex: 1;
+  overflow-y: auto;
 }
 .edm-ext-price-promise .edm-ext-special-offers .edm-ext-special-offers-item {
   border-top: 1px dashed #e2e2e2;
@@ -859,14 +898,19 @@
   font-size: 11px;
   overflow: hidden;
 }
-.edm-ext-special-offers-item .edm-ext-info .edm-ext-vehicle {
-  color: #0072bc;
+.edm-ext-special-offers-item .edm-ext-info .edm-ext-vehicle a {
   font-size: 13px;
+  font-weight: bold;
 }
 .edm-ext-special-offers-item .edm-ext-price {
   margin-left: 15px;
   float: right;
+  text-align: center;
   width: 110px;
+}
+.edm-ext-special-offers-item .edm-ext-price .edm-ext-dealer-distance {
+  font-size: 11px;
+  text-align: right;
 }
 .edm-ext-special-offers-item .edm-ext-price .edm-ext-msrp {
   font-size: 13px;
@@ -878,4 +922,18 @@
   font-size: 14px;
   color: #58a200;
   text-align: center;
+}
+.edm-ext-special-offers-item .edm-ext-price .edm-ext-btn {
+  background: #58A200;
+  border-radius: 20px;
+  color: white;
+  display: inline-block;
+  font-size: 11px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.edm-ext-special-offers-item .edm-ext-price .edm-ext-btn:visited {
+  color: white;
 }

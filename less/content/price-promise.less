@@ -71,9 +71,11 @@
   .edm-ext-panel-dropdown {
     border-top: 1px solid #e2e2e2;
     display: none;
-    height: 263px;
+    height: 308px;
     left: -1px;
-    width: 650px;
+    width: 700px;
+    -webkit-user-select: initial;
+    user-select: initial;
 
     > * {
       flex-flow: column;
@@ -103,6 +105,7 @@
   .edm-ext-special-offers {
     background: #fff;
     flex: 1;
+    overflow-y: auto;
 
     .edm-ext-special-offers-item {
       border-top: 1px dashed #e2e2e2;

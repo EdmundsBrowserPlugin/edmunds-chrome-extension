@@ -27,4 +27,19 @@
   sub {
     bottom: -0.25em;
   }
+
+  a {
+    color: #004d99;
+
+    &,
+    &:visited,
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    &:visited:hover,
+    &:hover {
+      color: #90be3f;
+    }
+  }
 }
