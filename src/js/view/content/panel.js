@@ -37,6 +37,10 @@ define([
             return this;
         },
 
+        isRendered: function() {
+            return this.$el.parent().length !== 0;
+        },
+
         collapse: function() {
             this.$el.addClass(_collapsedClassName);
             this.updateLogoTitle();
