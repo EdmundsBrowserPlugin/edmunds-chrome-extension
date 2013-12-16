@@ -1,7 +1,7 @@
 {
   "name": "__MSG_application_name__",
   "description": "__MSG_application_description__",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "manifest_version": 2,
   "minimum_chrome_version": "29",
   "default_locale": "en",
@@ -30,6 +30,9 @@
       "matches": [
         "http://*/*",
         "https://*/*"
+      ],
+      "exclude_matches": [
+        "*://*.edmunds.com/*"
       ],
       "js": [
         "lib/requirejs/require.js",
