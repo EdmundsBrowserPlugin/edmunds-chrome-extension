@@ -112,7 +112,6 @@ define([
             chrome.storage.local.get(['makeModelsMap', 'zip'], function(response) {
                 var vehicles = Parser.parse(documentContent, response.makeModelsMap);
                 this.fetchSpecialOffers(vehicles, response.zip);
-                this.panel.pricePromise.zip = response.zip;
             }.bind(this));
             this.previousDocumentContent = documentContent;
         },
@@ -139,8 +138,16 @@ define([
                     offers[data.make][data.model] = data.offers;
                     offersCount += data.offers.length;
                 });
-                this.panel.pricePromise.setSpecialOffers(offers, offersCount);
-                this.panel.setOffersCount(offersCount);
+                if (offersCount === 0) {
+                    this.panel.remove();
+                } else {
+                    if (!this.panel.isRendered()) {
+                        this.panel.render();
+                    }
+                    this.panel.pricePromise.zip = zip;
+                    this.panel.pricePromise.setSpecialOffers(offers, offersCount);
+                    this.panel.setOffersCount(offersCount);
+                }
             }.bind(this));
         },
 
