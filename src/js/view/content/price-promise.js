@@ -144,7 +144,8 @@ define([
                 franchiseId: offer.franchiseId,
                 inventoryId: offer.id,
                 zip: this.zip,
-                'price_promise': true
+                'price_promise': true,
+                browserext: true
             });
         },
 
@@ -159,7 +160,8 @@ define([
                 locationId: offer.locationId,
                 franchiseId: offer.franchiseId,
                 inventoryId: offer.id,
-                zip: this.zip
+                zip: this.zip,
+                browserext: true
             });
         },
 

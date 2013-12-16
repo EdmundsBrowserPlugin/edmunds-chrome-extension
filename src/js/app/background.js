@@ -19,7 +19,7 @@ define([
             console.log('BackgroundApp#initializeBrowserAction');
             chrome.browserAction.onClicked.addListener(function() {
                 chrome.tabs.create({
-                    url: 'http://www.edmunds.com'
+                    url: 'http://www.edmunds.com/?browserext=true'
                 });
             });
         },
