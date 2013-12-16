@@ -4,6 +4,8 @@ define([
     'analytics/ga'
 ], function(PricePromiseView, template, analytics) {
 
+    var _collapsedClassName = 'edm-ext-panel-collapsed';
+
     return Backbone.View.extend({
 
         className: 'edm-ext-panel',
@@ -19,7 +21,6 @@ define([
 
         initialize: function(options) {
             this[options.collapsed ? 'collapse' : 'expand']();
-
         },
 
         initializePricePromise: function() {
@@ -31,22 +32,34 @@ define([
         render: function() {
             this.el.innerHTML = this.template();
             document.body.appendChild(this.el);
+            this.updateLogoTitle();
             this.initializePricePromise();
             return this;
         },
 
         collapse: function() {
-            this.$el.addClass('edm-ext-panel-collapsed');
+            this.$el.addClass(_collapsedClassName);
+            this.updateLogoTitle();
             return this;
         },
 
         expand: function() {
-            this.$el.removeClass('edm-ext-panel-collapsed');
+            this.$el.removeClass(_collapsedClassName);
+            this.updateLogoTitle();
+            return this;
+        },
+
+        isCollapsed: function() {
+            return this.$el.hasClass(_collapsedClassName);
+        },
+
+        updateLogoTitle: function() {
+            this.$('.edm-ext-logo').attr('title', chrome.i18n.getMessage(this.isCollapsed() ? 'minimized_panel_logo_title' : 'maximized_panel_logo_title'));
             return this;
         },
 
         onToggleViewClick: function() {
-            if (this.$el.hasClass('edm-ext-panel-collapsed')) {
+            if (this.isCollapsed()) {
                 this.expand();
                 this.trigger('expand');
 
@@ -80,6 +93,7 @@ define([
 
         setOffersCount: function(count) {
             this.$('.edm-ext-offers-count-label').text(count);
+            return this;
         }
 
     });

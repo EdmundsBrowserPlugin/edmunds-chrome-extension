@@ -17,17 +17,20 @@
   "notification_welcome_settings_button_title": {
     "message": "Visit the options page"
   },
-  "panel_logo_title": {
-    "message": ""
+  "maximized_panel_logo_title": {
+    "message": "Click to minimize the panel"
+  },
+  "minimized_panel_logo_title": {
+    "message": "Click to maximize the panel"
   },
   "panel_exclude_button_title": {
-    "message": "Always hide on this website"
+    "message": "Always hide the panel on this website"
   },
   "panel_exclude_button_text": {
-    "message": "Hide"
+    "message": "Always hide on this website"
   },
   "panel_minimize_button_title": {
-    "message": "Minimize panel"
+    "message": "Minimize the panel"
   },
   "panel_minimize_button_text": {
     "message": "Minimize"
