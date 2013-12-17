@@ -39,6 +39,7 @@ define([
             document.body.appendChild(this.el);
             this.delegateEvents();
             this.pricePromise.setElement(this.$('.edm-ext-price-promise'));
+            analytics.track('Extension Panel', 'Render', location.href);
             return this;
         },
 
