@@ -141,9 +141,7 @@ define([
                 if (offersCount === 0) {
                     this.panel.remove();
                 } else {
-                    if (!this.panel.isRendered()) {
-                        this.panel.render();
-                    }
+                    this.panel.render();
                     this.panel.pricePromise.zip = zip;
                     this.panel.pricePromise.setSpecialOffers(offers, offersCount);
                     this.panel.setOffersCount(offersCount);
@@ -159,8 +157,6 @@ define([
 
         start: function() {
             console.log('ContentApp#start');
-            this.initializePanel();
-            this.panel.render();
             document.addEventListener('DOMSubtreeModified', this.onDocumentChange);
             this.parseDocument();
         },
