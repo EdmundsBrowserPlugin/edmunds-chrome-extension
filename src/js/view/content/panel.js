@@ -13,7 +13,7 @@ define([
         template: _.template(template),
 
         events: {
-            'click [data-action="toggle-view"],[data-action="minimize"]': 'onToggleViewClick',
+            'click [data-action="toggle-view"]': 'onToggleViewClick',
             'click [data-action="minimize"]': 'onMinimizeClick',
             'click [data-action="close"]': 'onCloseClick',
             'click [data-action="exclude"]': 'onExcludeClick'
@@ -21,24 +21,25 @@ define([
 
         initialize: function(options) {
             this[options.collapsed ? 'collapse' : 'expand']();
-        },
-
-        initializePricePromise: function() {
+            this.el.innerHTML = this.template();
             this.pricePromise = new PricePromiseView({
                 el: this.$('.edm-ext-price-promise')
             });
-        },
-
-        render: function() {
-            this.el.innerHTML = this.template();
-            document.body.appendChild(this.el);
             this.updateLogoTitle();
-            this.initializePricePromise();
-            return this;
         },
 
         isRendered: function() {
             return this.$el.parent().length !== 0;
+        },
+
+        render: function() {
+            if (this.isRendered()) {
+                return this;
+            }
+            document.body.appendChild(this.el);
+            this.delegateEvents();
+            this.pricePromise.setElement(this.$('.edm-ext-price-promise'));
+            return this;
         },
 
         collapse: function() {
