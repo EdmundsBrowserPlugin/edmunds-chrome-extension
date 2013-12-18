@@ -17,11 +17,7 @@ define([
 
         initializeBrowserAction: function() {
             console.log('BackgroundApp#initializeBrowserAction');
-            chrome.browserAction.onClicked.addListener(function() {
-                chrome.tabs.create({
-                    url: 'http://www.edmunds.com/?browserext=true'
-                });
-            });
+            chrome.browserAction.onClicked.addListener(this.showOptionsPage);
         },
 
         handleRuntimeMessage: function(message) {
@@ -97,6 +93,21 @@ define([
                         makeModelsMap: makeModelsMap
                     });
                 }
+            });
+        },
+
+        showOptionsPage: function() {
+            /* jshint camelcase:false */
+            var manifest = chrome.runtime.getManifest(),
+                optionsPageUrl = chrome.runtime.getURL(manifest.options_page);
+            chrome.tabs.query({ url: optionsPageUrl }, function(tabs) {
+                if (tabs.length === 0) {
+                    chrome.tabs.create({ url: optionsPageUrl });
+                    return;
+                }
+                tabs.forEach(function(tab) {
+                    chrome.tabs.update(tab.id, { active: true });
+                });
             });
         }
 
