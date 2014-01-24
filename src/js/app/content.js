@@ -51,7 +51,6 @@ define([
         },
 
         initialize: function(options) {
-            console.log('ContentApp#initialize');
             App.prototype.initialize.call(this, options);
             this.initializePanel();
             this.onDocumentChange = this.onDocumentChange.bind(this);
@@ -74,7 +73,6 @@ define([
         },
 
         handleRuntimeMessage: function(message) {
-            console.log('ContentApp#handleRuntimeMessage');
             switch (message.action) {
                 case 'stop':
                     this.stop();
@@ -104,7 +102,6 @@ define([
         },
 
         parseDocument: function() {
-            console.log('ContentApp#parseDocument');
             var documentContent = this.getDocumentContent();
             if (documentContent === this.previousDocumentContent) {
                 return;
@@ -138,7 +135,6 @@ define([
 
         fetchSpecialOffers: function(vehicles, zip) {
             var requests = [];
-            console.log('ContentApp#fetchSpecialOffers');
             _.each(vehicles, function(models, make) {
                 _.each(models, function(years, model) {
                     requests.push(_fetchSpecialOffers(make, model, years, zip));
@@ -170,19 +166,16 @@ define([
         },
 
         stop: function() {
-            console.log('ContentApp#stop');
             document.removeEventListener('DOMSubtreeModified', this.onDocumentChange);
             this.panel.remove();
         },
 
         start: function() {
-            console.log('ContentApp#start');
             document.addEventListener('DOMSubtreeModified', this.onDocumentChange);
             this.parseDocument();
         },
 
         excludeUrl: function(url) {
-            console.log('ContentApp#exclude');
             BlackListStorage.add(url, function() {
                 chrome.runtime.sendMessage({ action: 'stopContentApplications', data: url });
             });

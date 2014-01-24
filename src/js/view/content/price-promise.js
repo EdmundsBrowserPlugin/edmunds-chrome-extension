@@ -81,7 +81,6 @@ define([
         },
 
         setSpecialOffers: function(map, count) {
-            console.log('#setSpecialOffers');
             this.$('.edm-ext-price-promise-count').text(count);
             this[count !== 0 ? 'enable' : 'disable']();
             if (!_.isEqual(map, this.previousOffersMap)) {

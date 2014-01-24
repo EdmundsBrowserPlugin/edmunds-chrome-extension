@@ -9,19 +9,16 @@ define([
         },
 
         initialize: function(options) {
-            console.log('BackgroundApp#initialize');
             App.prototype.initialize.call(this, options);
             this.initializeBrowserAction();
             this.checkForUpdate();
         },
 
         initializeBrowserAction: function() {
-            console.log('BackgroundApp#initializeBrowserAction');
             chrome.browserAction.onClicked.addListener(this.showOptionsPage);
         },
 
         handleRuntimeMessage: function(message) {
-            console.log('BackgroundApp#handleRuntimeMessage');
             switch (message.action) {
                 case 'startContentApplications':
                     this.startContentApplications(message.data);
@@ -36,7 +33,6 @@ define([
         },
 
         startContentApplications: function(url) {
-            console.log('BackgroundApp#startContentApplications');
             chrome.tabs.query({ url: url + '/*' }, function(tabs) {
                 tabs.forEach(function(tab) {
                     chrome.tabs.sendMessage(tab.id, { action: 'start' });
@@ -45,7 +41,6 @@ define([
         },
 
         stopContentApplications: function(url) {
-            console.log('BackgroundApp#stopContentApplications');
             chrome.tabs.query({ url: url + '/*' }, function(tabs) {
                 tabs.forEach(function(tab) {
                     chrome.tabs.sendMessage(tab.id, { action: 'stop' });
@@ -54,7 +49,6 @@ define([
         },
 
         dispatchPanelEvent: function(action) {
-            console.log('BackgroundApp#dispatchPanelEvent');
             chrome.tabs.query({}, function(tabs) {
                 tabs.forEach(function(tab) {
                     chrome.tabs.sendMessage(tab.id, { action: action });
@@ -63,7 +57,6 @@ define([
         },
 
         checkForUpdate: function() {
-            console.log('#checkForUpdate');
             chrome.storage.local.get('lastUpdateDate', function(response) {
                 if (!response.lastUpdateDate || (Date.now() - response.lastUpdateDate > this.options.updatePeriod)) {
                     this.updateMakeModels();
@@ -72,7 +65,6 @@ define([
         },
 
         updateMakeModels: function() {
-            console.log('#updateMakeModels');
             jQuery.ajax({
                 url: 'http://www.edmunds.com/api/vehicle/v2/makes',
                 data: {

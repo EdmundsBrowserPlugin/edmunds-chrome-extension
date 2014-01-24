@@ -7,7 +7,6 @@ define([
     return App.extend({
 
         initialize: function(options) {
-            console.log('OptionsApp#initialize');
             App.prototype.initialize.call(this, options);
             this.initializeZipView();
             this.initializeBlackListView();
@@ -15,7 +14,6 @@ define([
 
         initializeZipView: function() {
             var view = new BlackListView();
-            console.log('OptionsApp#initializeZipView');
             view.on('add', function(url) {
                 chrome.runtime.sendMessage({ action: 'stopContentApplications', data: url });
             });
@@ -27,7 +25,6 @@ define([
         initializeBlackListView: function() {
             /* jshint unused:false */
             var view = new ZipView();
-            console.log('OptionsApp#initializeBlackListView');
         }
 
     });
