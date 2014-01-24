@@ -15,7 +15,7 @@
   "maxdepth": 2,
   "onevar": true,
   "browser": true,
-  "devel": true,
+  "devel": false,
   "globals": {
     "chrome": true,
     "define": true,
