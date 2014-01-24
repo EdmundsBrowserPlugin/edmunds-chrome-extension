@@ -1,23 +1,12 @@
 define([
     '../../../src/js/parser/extended',
-    'text!../../../src/data/make-models.json'
-], function(Parser, makeModelMapJSON, undefined) {
+    'text!../../../src/data/make-models.json',
+    'text!../../../src/data/model-alias-map.json'
+], function(Parser, makeModelMapJSON, modelAliasMapJSON) {
 
-    var makeModelMap = {
-            BMW: ['M'],
-            Ford: ['F-150', 'F-150 Heritage'],
-            Dodge: ['Avenger'],
-            Porsche: ['Cayenne', 'Panamera']
-        },
-        modelAliasMap = {
-            Ford: {
-                'F-150': ['F150'],
-                'F-150 Heritage': ['F150 Heritage']
-            }
-        },
+    var makeModelMap = JSON.parse(makeModelMapJSON),
+        modelAliasMap = JSON.parse(modelAliasMapJSON),
         parser;
-
-    makeModelMap = JSON.parse(makeModelMapJSON);
 
     module('parser/extended', {
         setup: function() {
@@ -45,7 +34,7 @@ define([
                 { str: 'Ford / F-150 / 2013', expected: expectedFull, message: 'breadcrumb example' },
                 { str: '2013 - Ford : F-150', expected: expectedFull, message: 'various seprators' },
                 { str: 'Ford : F-150 4WD SuperCre', expected: expectedPartial, message: 'ebay search result format' },
-                { str: 'Porsche 911', expected: null, message: 'should be null' },
+                { str: 'Porsche 912', expected: null, message: 'should be null' },
                 // preventing matches in case when the model name matches with the beginning of another word
                 { str: 'BMW Mazda', expected: null, message: 'should be null' }
             ];
