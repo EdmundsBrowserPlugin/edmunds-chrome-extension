@@ -2,7 +2,7 @@ define([
     'app/base',
     'storage/blacklist',
     'view/content/panel',
-    'parser/default'
+    'parser/extended'
 ], function(App, BlackListStorage, PanelView, Parser) {
 
     function _parseSpecialOffers(response) {
@@ -109,11 +109,31 @@ define([
             if (documentContent === this.previousDocumentContent) {
                 return;
             }
-            chrome.storage.local.get(['makeModelsMap', 'zip'], function(response) {
-                var vehicles = Parser.parse(documentContent, response.makeModelsMap);
+            chrome.storage.local.get(['makeModelMap', 'modelAliasMap', 'zip'], function(response) {
+                var parser = new Parser(response.makeModelMap, response.modelAliasMap),
+                    searchResults = parser.parseSome([document.title, location.href, documentContent]),
+                    vehicles = this.buildVehiclesMapFromSearchResults(searchResults);
                 this.fetchSpecialOffers(vehicles, response.zip);
             }.bind(this));
             this.previousDocumentContent = documentContent;
+        },
+
+        buildVehiclesMapFromSearchResults: function(searchResults) {
+            var map = {};
+            searchResults.forEach(function(vehicles) {
+                vehicles.forEach(function(vehicle) {
+                    if (!map[vehicle.make]) {
+                        map[vehicle.make] = {};
+                    }
+                    if (!map[vehicle.make][vehicle.model]) {
+                        map[vehicle.make][vehicle.model] = [];
+                    }
+                    if (vehicle.year) {
+                        map[vehicle.make][vehicle.model] = _.union(map[vehicle.make][vehicle.model], vehicle.year);
+                    }
+                });
+            });
+            return map;
         },
 
         fetchSpecialOffers: function(vehicles, zip) {

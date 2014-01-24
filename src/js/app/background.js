@@ -81,16 +81,16 @@ define([
                 dataType: 'json',
                 traditional: true,
                 success: function(response) {
-                    var makeModelsMap = {};
+                    var makeModelMap = {};
                     _.each(response.makes, function(make) {
-                        makeModelsMap[make.name] = [];
+                        makeModelMap[make.name] = [];
                         _.each(make.models, function(model) {
-                            makeModelsMap[make.name].push(model.name);
+                            makeModelMap[make.name].push(model.name);
                         });
                     });
                     chrome.storage.local.set({
                         lastUpdateDate: Date.now(),
-                        makeModelsMap: makeModelsMap
+                        makeModelMap: makeModelMap
                     });
                 }
             });

@@ -63,9 +63,9 @@
         findZipCodeByCoordinates(geoposition.coords, onZipFound);
     }
 
-    function getDefaultMakeModelsMap(callback) {
+    function getJSON(url, callback) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', chrome.runtime.getURL('/data/make-models.json'));
+        xhr.open('GET', url);
         xhr.onreadystatechange = function() {
             var json;
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -79,10 +79,15 @@
     }
 
     function initializeLocalStorage() {
-        getDefaultMakeModelsMap(function(makeModelsMap) {
-            defaults.makeModelsMap = makeModelsMap;
-            chrome.storage.local.set(defaults, function() {
-                showWelcomeNotification();
+        var urlMakeModelMap = chrome.runtime.getURL('/data/make-models.json'),
+            urlModelAliasMap = chrome.runtime.getURL('/data/model-alias-map.json');
+        getJSON(urlMakeModelMap, function(makeModelMap) {
+            getJSON(urlModelAliasMap, function(modelAliasMap) {
+                defaults.makeModelMap = makeModelMap;
+                defaults.modelAliasMap = modelAliasMap;
+                chrome.storage.local.set(defaults, function() {
+                    showWelcomeNotification();
+                });
             });
         });
     }
