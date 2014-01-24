@@ -134,8 +134,8 @@ define([], function() {
                     parts = str.toLowerCase().match(reg); // [input, year, make, year, model, year, year, model, year, make, year]
                 if (parts !== null) {
                     foundMake = make;
-                    foundModel = this.getModelName(make, parts[4] || parts[7]);
-                    foundYear = this.getYear(parts[1] || parts[3] || parts[5] || parts[6] || parts[8] || parts[10]);
+                    foundModel = this.parseModelName(make, parts[4] || parts[7]);
+                    foundYear = this.parseYear(parts[1] || parts[3] || parts[5] || parts[6] || parts[8] || parts[10]);
                 }
                 return parts !== null;
             }, this);
@@ -190,12 +190,12 @@ define([], function() {
         },
 
         /**
-         * @method getModelName
+         * @method parseModelName
          * @param {String} foundMake
          * @param {String} foundModel
          * @returns {String|undefined}
          */
-        getModelName: function(foundMake, foundModel) {
+        parseModelName: function(foundMake, foundModel) {
             var result;
             // try to find in make-model map
             this.makeModelMap[foundMake].some(function(model) {
@@ -223,11 +223,11 @@ define([], function() {
         },
 
         /**
-         * @method getYear
+         * @method parseYear
          * @param {String} foundYear
          * @returns {Number|undefined}
          */
-        getYear: function(foundYear) {
+        parseYear: function(foundYear) {
             var year = parseInt(foundYear, 10);
             if (year && year > 1990) {
                 return year;
