@@ -10,12 +10,10 @@ define(function() {
         defaults: {},
 
         initialize: function() {
-            console.log('BaseApp#initialize');
             chrome.runtime.onMessage.addListener(this.handleRuntimeMessage.bind(this));
         },
 
         handleRuntimeMessage: function() {
-            console.log('BaseApp#handleRuntimeMessage');
         }
 
     };
