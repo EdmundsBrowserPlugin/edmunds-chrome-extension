@@ -77,12 +77,14 @@ define([], function() {
                     models = models.concat(aliasMap[model]);
                 });
             }
+            // transform make to lower case for best performance
+            make = make.toLowerCase();
             // sort models
             // models with suffix should be found first,
             // for example "Ford F-150 Heritage" should be found instead of "Ford F-150"
             models.sort().reverse();
-            // define model group
-            model = separator + '(' + models.join('|') + ')' + separator;
+            // define model group and transform it to lower-case for the better performance
+            model = separator + '(' + models.join('|').toLowerCase() + ')' + separator;
             // add patterns
             patterns.push(wordBoundary + optionalYearBefore + '(' + make + ')' + optionalYearAfter + model + optionalYearAfter + wordBoundary);
             patterns.push(wordBoundary + optionalYearBefore + model + optionalYearBefore + '(' + make + ')' + optionalYearAfter + wordBoundary);
@@ -103,8 +105,8 @@ define([], function() {
                 patterns.push(this.patternsMap[make]);
             }, this);
             // parse
-            reg = new RegExp(patterns.join('|'), 'gi');
-            matches = str.match(reg);
+            reg = new RegExp(patterns.join('|'), 'g');
+            matches = str.toLowerCase().match(reg);
             // parse vehicles one by one
             if (matches !== null) {
                 matches.forEach(function(matchedStr) {
@@ -128,8 +130,8 @@ define([], function() {
 
             this.makes.some(function(make) {
                 var pattern = this.patternsMap[make],
-                    reg = new RegExp(pattern, 'i'),
-                    parts = str.match(reg); // [input, year, make, year, model, year, year, model, year, make, year]
+                    reg = new RegExp(pattern),
+                    parts = str.toLowerCase().match(reg); // [input, year, make, year, model, year, year, model, year, make, year]
                 if (parts !== null) {
                     foundMake = make;
                     foundModel = this.getModelName(make, parts[4] || parts[7]);
