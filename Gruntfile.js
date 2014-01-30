@@ -7,6 +7,24 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        dir: {
+            build: 'dist'
+        },
+
+        // https://github.com/gruntjs/grunt-contrib-clean
+        clean: {
+            build: ['<%= dir.build %>']
+        },
+
+        // https://github.com/gruntjs/grunt-contrib-copy
+        copy: {
+            build: {
+                files: [
+                    { expand: true, cwd: 'src', src: ['_locales/**', 'data/**', 'fonts/**', 'img/**', '*.html', '*.json', 'lib/**'], dest: '<%= dir.build %>' }
+                ]
+            }
+        },
+
         // https://github.com/gruntjs/grunt-contrib-jshint
         jshint: {
             options: {
@@ -55,12 +73,31 @@ module.exports = function(grunt) {
                     'src/css/content.css': 'less/content.less',
                     'src/css/options.css': 'less/options.less'
                 }
+            },
+            build: {
+                files: {
+                    '<%= dir.build %>/css/content.css': 'less/content.less',
+                    '<%= dir.build %>/css/options.css': 'less/options.less'
+                },
+                options: {
+                    compress: true
+                }
             }
         },
 
         // https://github.com/gruntjs/grunt-contrib-qunit
         qunit: {
             all: ['test/*.html']
+        },
+
+        // https://github.com/gruntjs/grunt-contrib-requirejs
+        requirejs: {
+            build: {
+                options: {
+                    baseUrl: 'src/js/',
+                    dir: '<%= dir.build %>/js/'
+                }
+            }
         },
 
         // https://github.com/gruntjs/grunt-contrib-watch
@@ -109,9 +146,12 @@ module.exports = function(grunt) {
     });
 
     // plugins
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-jsonlint');
     grunt.loadTasks('tasks');
@@ -121,6 +161,14 @@ module.exports = function(grunt) {
         'jshint',
         'jsonlint',
         'qunit'
+    ]);
+
+    grunt.registerTask('build', [
+        'test',
+        'clean:build',
+        'copy:build',
+        'requirejs:build',
+        'less:build'
     ]);
 
     grunt.registerTask('default', 'watch');
