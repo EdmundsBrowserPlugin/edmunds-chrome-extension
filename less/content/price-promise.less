@@ -85,6 +85,7 @@
   .edm-ext-vehicles {
     background: #f5f5f5;
     border-right: 1px solid #e2e2e2;
+    display: none; // since implementation of the extended parsing we should show only one vehicle
     overflow-y: auto;
     width: 200px;
 
@@ -115,4 +116,9 @@
       }
     }
   }
+
+  /* since implementation of the extended parsing we should show only one vehicle */
+  .edm-ext-panel-dropdown { width: 500px; }
+  .edm-ext-vehicles { display: none; }
+
 }

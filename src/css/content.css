@@ -771,6 +771,7 @@
   float: left;
   line-height: 30px;
   position: relative;
+  /* since implementation of the extended parsing we should show only one vehicle */
 }
 .edm-ext-price-promise.edm-ext-active,
 .edm-ext-price-promise:hover {
@@ -844,6 +845,7 @@
 .edm-ext-price-promise .edm-ext-vehicles {
   background: #f5f5f5;
   border-right: 1px solid #e2e2e2;
+  display: none;
   overflow-y: auto;
   width: 200px;
 }
@@ -869,6 +871,12 @@
 }
 .edm-ext-price-promise .edm-ext-special-offers .edm-ext-special-offers-item:first-child {
   border-top: 0;
+}
+.edm-ext-price-promise .edm-ext-panel-dropdown {
+  width: 500px;
+}
+.edm-ext-price-promise .edm-ext-vehicles {
+  display: none;
 }
 .edm-ext-special-offers-item {
   line-height: 1.5;
