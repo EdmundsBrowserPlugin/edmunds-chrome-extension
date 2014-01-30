@@ -2,6 +2,8 @@ require.config({
 
     baseUrl: chrome.runtime.getURL('/js'),
 
+    skipDataMain: true,
+
     paths: {
         'google-analytics': 'https://ssl.google-analytics.com/ga',
         'text': '../lib/requirejs/text'
@@ -11,14 +13,6 @@ require.config({
         'google-analytics': {
             exports: '_gaq'
         }
-    }
-
-});
-
-_.mixin({
-
-    formatNumber: function(value) {
-        return (Number(value) || 0).toString().split(/(?=(?:\d{3})+(?:\.|$))/g).join(',');
     }
 
 });
