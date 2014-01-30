@@ -108,7 +108,7 @@ define([
             }
             chrome.storage.local.get(['makeModelMap', 'modelAliasMap', 'zip'], function(response) {
                 var parser = new Parser(response.makeModelMap, response.modelAliasMap),
-                    searchResults = parser.parseSome([document.title, location.href, documentContent]),
+                    searchResults = parser.parseSome([document.title, location.href]),
                     vehicles = this.buildVehiclesMapFromSearchResults(searchResults);
                 this.fetchSpecialOffers(vehicles, response.zip);
             }.bind(this));
