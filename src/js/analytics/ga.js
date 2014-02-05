@@ -1,10 +1,7 @@
 define(['google-analytics'], function(ga) {
 
-    ga.push(['_setAccount', 'UA-46028925-1']);
-
-    if (location.origin + '/' === chrome.runtime.getURL('')) {
-        ga.push(['_trackPageview']);
-    }
+    ga.push(['_setAccount', 'UA-47751302-1']);
+    ga.push(['_trackPageview']);
 
     return {
 
